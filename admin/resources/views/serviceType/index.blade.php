@@ -1,6 +1,6 @@
-@extends('layouts.corporate.master')
+@extends('layouts.master')
 @section('main-content')
-@include('layouts.corporate.messege')  
+@include('layouts.messege')  
   <!-- Content Header (Page header) -->
     <section class="content-header">
       <a href="{{ route('corporate.serviceType.create') }}" class="btn btn-primary" style="margin-bottom: 15px;">Add New</a>

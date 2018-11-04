@@ -1,4 +1,4 @@
-@extends('layouts.corporate.master')
+@extends('layouts.master')
 @section('main-content')
 	<section class="content">
 		<div class="row">
@@ -40,7 +40,7 @@
 			                      </td>
 			                      <td>
 			                          @if($value->asset != '')
-			                          <a href="{{ route('corporate.asset',$value->asset->id) }}">{{ $value->asset->name }}</a>
+			                          <a href="{{ route('asset',$value->asset->id) }}">{{ $value->asset->name }}</a>
 			                          @endif
 			                    </td>
 			                      <td>@if($value->statusLast<>'') {{ $value->statusLast->name }} @endif</td>

@@ -1,9 +1,9 @@
-@extends('layouts.corporate.master')
+@extends('layouts.master')
 @section('main-content')
-@include('layouts.corporate.messege')  
+@include('layouts.messege')  
   <!-- Content Header (Page header) -->
     <section class="content-header">
-      <a href="{{ route('corporate.branch.create') }}" class="btn btn-primary" style="margin-bottom: 15px;">Add New</a>
+      <a href="{{ route('branch.create') }}" class="btn btn-primary" style="margin-bottom: 15px;">Add New</a>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#">Branch</a></li>
@@ -62,9 +62,9 @@
                           <div class="dropdown">
                             <button aria-expanded="false" data-toggle="dropdown" class="btn btn-primary dropdown-toggle " type="button">Action <span class="caret"></span></button>
                             <ul role="menu" class="dropdown-menu">
-                              <li><a href="{{ route('corporate.branch.edit',$value->id) }}">Edit</a></li>
+                              <li><a href="{{ route('branch.edit',$value->id) }}">Edit</a></li>
                               {{-- <li>
-                                  {{ Form::open(['method'=>'delete','route'=>['corporate.branch.destroy',$value->id]]) }}
+                                  {{ Form::open(['method'=>'delete','route'=>['branch.destroy',$value->id]]) }}
                                   <button style="border: none;background:none;color: red" onclick="return confirm('Are you sure want to be Delete?')"> <i class="fa fa-trash-o"></i> Delete</button>
                                   {{ Form::close() }}
                               </li> --}}

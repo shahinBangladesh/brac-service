@@ -1,4 +1,4 @@
-@extends('layouts.corporate.master')
+@extends('layouts.master')
 @section('main-content')
   <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -27,7 +27,7 @@
             <div class="icon">
               <i class="ion ion-bag"></i>
             </div>
-            <a href="{{ route('corporate.unassigned') }}" class="small-box-footer"><i class="fa fa-arrow-circle-right"></i> View All</a>
+            <a href="{{ route('unassigned') }}" class="small-box-footer"><i class="fa fa-arrow-circle-right"></i> View All</a>
           </div>
         </div>
         <!-- ./col -->
@@ -42,7 +42,7 @@
             <div class="icon">
               <i class="ion ion-stats-bars"></i>
             </div>
-            <a href="{{ route('corporate.waitingForEstimateApproval') }}" class="small-box-footer"><i class="fa fa-arrow-circle-right"></i> View All</a>
+            <a href="{{ route('waitingForEstimateApproval') }}" class="small-box-footer"><i class="fa fa-arrow-circle-right"></i> View All</a>
           </div>
         </div>
         <!-- ./col -->
@@ -57,7 +57,7 @@
             <div class="icon">
               <i class="ion ion-stats-bars"></i>
             </div>
-            <a href="{{ route('corporate.waitingForEssSchedule') }}" class="small-box-footer"><i class="fa fa-arrow-circle-right"></i> View All</a>
+            <a href="{{ route('waitingForEssSchedule') }}" class="small-box-footer"><i class="fa fa-arrow-circle-right"></i> View All</a>
           </div>
         </div>
         <!-- ./col -->
@@ -72,7 +72,7 @@
             <div class="icon">
               <i class="ion ion-person-add"></i>
             </div>
-            <a href="{{ route('corporate.inProcess') }}" class="small-box-footer"><i class="fa fa-arrow-circle-right"></i> View All</a>
+            <a href="{{ route('inProcess') }}" class="small-box-footer"><i class="fa fa-arrow-circle-right"></i> View All</a>
           </div>
         </div>
         <!-- ./col -->
@@ -87,7 +87,7 @@
             <div class="icon">
               <i class="ion ion-pie-graph"></i>
             </div>
-            <a href="{{ route('corporate.pending') }}" class="small-box-footer"><i class="fa fa-arrow-circle-right"></i> View All</a>
+            <a href="{{ route('pending') }}" class="small-box-footer"><i class="fa fa-arrow-circle-right"></i> View All</a>
           </div>
         </div>
         <!-- ./col -->
@@ -131,7 +131,7 @@
                     <th>Problem</th>
                     <!-- <th>Expected Date</th> -->
                     <th>Request Time</th>
-                    @if(Auth::guard('corporate')->user()->approverOrConsent == 1) 
+                    @if(Auth::user()->approverOrConsent == 1) 
                       <th>Action</th>
                     @endif
                   </tr>
@@ -148,13 +148,13 @@
                       </td> 
                       <td>
                           @if($value->asset != '')
-                          <a href="{{ route('corporate.asset',$value->asset->id) }}">{{ $value->asset->name }}</a>
+                          <a href="{{ route('asset',$value->asset->id) }}">{{ $value->asset->name }}</a>
                           @endif
                     </td>
                       <td><a data-toggle="tooltip" title="{{ str_limit($value->ProblemDescription, 1000) }}"> Problem</a></td>
                       <!-- <td>{{ $value->ExpectedDate }}</td> -->
                       <td><small class="label label-danger"><i class="fa fa-clock-o"></i>@if($value->created_at != '') {{ $value->created_at->diffForHumans() }}@endif</small></td>
-                      @if(Auth::guard('corporate')->user()->approverOrConsent == 1) 
+                      @if(Auth::user()->approverOrConsent == 1) 
                         <td>
                           <a href="{{ url('approved/'.$value->id) }}">Actions</a>
                         </td>
@@ -212,7 +212,7 @@
                     <th>Asset</th>
                     <th>Problem</th>
                     <th>Request Time</th>
-                    @if(Auth::guard('corporate')->user()->approverOrConsent == 1) 
+                    @if(Auth::user()->approverOrConsent == 1) 
                       <th>Action</th>
                     @endif
                   </tr>
@@ -230,13 +230,13 @@
                         </td> 
                         <td>
                             @if($value->asset != '')
-                            <a href="{{ route('corporate.asset',$value->asset->id) }}">{{ $value->asset->name }}</a>
+                            <a href="{{ route('asset',$value->asset->id) }}">{{ $value->asset->name }}</a>
                             @endif
                       </td>
                         <td><a data-toggle="tooltip" title="{{ str_limit($value->ProblemDescription, 1000) }}"> Problem</a></td>
                         <!-- <td>{{ $value->ExpectedDate }}</td> -->
                         <td><small class="label label-danger"><i class="fa fa-clock-o"></i>@if($value->created_at != '') {{ $value->estimate->created_at->diffForHumans() }}@endif</small></td>
-                        @if(Auth::guard('corporate')->user()->approverOrConsent == 1) 
+                        @if(Auth::user()->approverOrConsent == 1) 
                           <td>
                             <a href="{{ url('estimate/'.$value->id) }}">Actions</a>
                           </td>
@@ -285,7 +285,7 @@
                     <th>Status</th>
                     <th>Request</th>
                     <th>Request Time</th>
-                    @if(Auth::guard('corporate')->user()->approverOrConsent == 1) 
+                    @if(Auth::user()->approverOrConsent == 1) 
                       <th>Action</th>
                     @endif
                   </tr>
@@ -302,7 +302,7 @@
                           </td>
                       <td>
                           @if($value->asset != '')
-                          <a href="{{ route('corporate.asset',$value->asset->id) }}">{{ $value->asset->name }}</a>
+                          <a href="{{ route('asset',$value->asset->id) }}">{{ $value->asset->name }}</a>
                           @endif
                     </td>
                       <td>
@@ -326,7 +326,7 @@
                       <td>
                         <small class="label label-danger"><i class="fa fa-clock-o"></i>@if($value->created_at != '') {{ $value->created_at->diffForHumans() }} @endif</small>
                       </td>
-                      @if(Auth::guard('corporate')->user()->approverOrConsent == 1) 
+                      @if(Auth::user()->approverOrConsent == 1) 
                         <td>
                           <a href="{{ url('approved/'.$value->id) }}">Actions</a>
                         </td>
@@ -386,7 +386,7 @@
                     <th>Status</th>
                     <th>Request</th>
                     <th>Request Time</th>
-                    @if(Auth::guard('corporate')->user()->approverOrConsent == 1) 
+                    @if(Auth::user()->approverOrConsent == 1) 
                       <th>Action</th>
                     @endif
                   </tr>
@@ -403,7 +403,7 @@
                           </td>
                       <td>
                           @if($value->asset != '')
-                          <a href="{{ route('corporate.asset',$value->asset->id) }}">{{ $value->asset->name }}</a>
+                          <a href="{{ route('asset',$value->asset->id) }}">{{ $value->asset->name }}</a>
                           @endif
                     </td>
                       <td>
@@ -427,7 +427,7 @@
                       <td>
                         <small class="label label-danger"><i class="fa fa-clock-o"></i>@if($value->created_at != '') {{ $value->created_at->diffForHumans() }} @endif</small>
                       </td>
-                      @if(Auth::guard('corporate')->user()->approverOrConsent == 1) 
+                      @if(Auth::user()->approverOrConsent == 1) 
                         <td>
                           <a href="{{ url('estimate/'.$value->id) }}">Actions</a>
                         </td>
@@ -487,7 +487,7 @@
                     <th>Branch</th>
                     <th>Model</th>
                     <th>Created At</th>
-                    @if(Auth::guard('corporate')->user()->approverOrConsent == 1) 
+                    @if(Auth::user()->approverOrConsent == 1) 
                       <th>Action</th>
                     @endif
                   </tr>
@@ -503,7 +503,7 @@
                       <td>
                         <small class="label label-danger"><i class="fa fa-clock-o"></i>@if($value->created_at != '') {{ $value->created_at->diffForHumans() }} @endif</small>
                       </td>
-                      @if(Auth::guard('corporate')->user()->approverOrConsent == 1) 
+                      @if(Auth::user()->approverOrConsent == 1) 
                         <td>
                           <a href="{{ url('asset/approve/'.$value->id) }}">Actions</a>
                         </td>
@@ -540,7 +540,7 @@
                     <th>Branch</th>
                     <th>Status</th>
                     <th>Created At</th>
-                    @if(Auth::guard('corporate')->user()->approverOrConsent == 1) 
+                    @if(Auth::user()->approverOrConsent == 1) 
                       <th>Action</th>
                     @endif
                   </tr>
@@ -572,7 +572,7 @@
                       <td>
                         <small class="label label-danger"><i class="fa fa-clock-o"></i>@if($value->created_at != '') {{ $value->created_at->diffForHumans() }} @endif</small>
                       </td>
-                      @if(Auth::guard('corporate')->user()->approverOrConsent == 1) 
+                      @if(Auth::user()->approverOrConsent == 1) 
                         <td>
                           <a href="{{ url('asset/approve/'.$value->id) }}">Actions</a>
                         </td>
@@ -638,7 +638,7 @@
                       </td>
                       <td>
                           @if($value->asset != '')
-                          <a href="{{ route('corporate.asset',$value->asset->id) }}">{{ $value->asset->name }}</a>
+                          <a href="{{ route('asset',$value->asset->id) }}">{{ $value->asset->name }}</a>
                           @endif
                     </td>
                       <td>@if($value->statusLast<>'') {{ $value->statusLast->name }} @endif</td>
@@ -647,7 +647,7 @@
                       <td><small class="label label-success">@if($value->lastStatusFromAllRequestStaus <>'') {{  $value->lastStatusFromAllRequestStaus->created_at->diffForHumans() }}@endif</small></td>
                       <td><small class="label label-danger"><i class="fa fa-clock-o"></i>{{ $value->created_at->diffForHumans() }}</small></td>
                       <td>
-                        @if(Auth::guard('corporate')->user()->approverOrConsent == 1 || Auth::guard('corporate')->user()->approverOrConsent == 2) 
+                        @if(Auth::user()->approverOrConsent == 1 || Auth::user()->approverOrConsent == 2) 
                           <a href="{{ url('req/details/'.$value->id) }}">Details</a>
                         @endif
                       </td>
@@ -729,7 +729,7 @@
                     </td>
                       <td>
                           @if($value->asset != '')
-                          <a href="{{ route('corporate.asset',$value->asset->id) }}">{{ $value->asset->name }}</a>
+                          <a href="{{ route('asset',$value->asset->id) }}">{{ $value->asset->name }}</a>
                           @endif
                          </td>
                       <td><a href="{{ url('req/details/'.$value->id) }}">Details</a></td>
@@ -786,7 +786,7 @@
                       </td>
                       <td>
                           @if($value->asset != '')
-                          <a href="{{ route('corporate.asset',$value->asset->id) }}">{{ $value->asset->name }}</a>
+                          <a href="{{ route('asset',$value->asset->id) }}">{{ $value->asset->name }}</a>
                           @endif
                     </td>
                       <td>@if($value->statusLast<>'') {{ $value->statusLast->name }} @endif</td>
@@ -795,7 +795,7 @@
                       <td><small class="label label-success">@if($value->approver <>'') {{  $value->approver->created_at->diffForHumans() }}@endif</small></td>
                       <td><small class="label label-danger"><i class="fa fa-clock-o"></i> {{ $value->created_at->diffForHumans() }}</small></td>
                       <td>
-                        @if(Auth::guard('corporate')->user()->approverOrConsent == 1 || Auth::guard('corporate')->user()->approverOrConsent == 2) 
+                        @if(Auth::user()->approverOrConsent == 1 || Auth::user()->approverOrConsent == 2) 
                           <a href="{{ url('req/details/'.$value->id) }}">Details</a>
                         @endif
                       </td>

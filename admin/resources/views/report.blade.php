@@ -1,4 +1,4 @@
-@extends('layouts.corporate.master')
+@extends('layouts.master')
 @section('main-content')
 	<section class="content">
 		<div class="row">
@@ -9,14 +9,14 @@
 						<h4 class="txt-dark text-center">Reports</h4><hr>
 					</div>
 					<div class="box-body">
-						<form action="{{ route('corporate.reports') }}" method="post">
+						<form action="{{ route('reports') }}" method="post">
 							{{ csrf_field() }}
 							<div class="row">
-								<div class="col-md-2 <?php if(Auth::guard('corporate')->user()->branch_id != null) echo 'hidden'; ?>">
+								<div class="col-md-2 <?php if(Auth::user()->branch_id != null) echo 'hidden'; ?>">
 									<div class="form-group">
 										<label>Branch</label>
 										<select class="form-control" name="branch">
-											@if(Auth::guard('corporate')->user()->branch_id == null)
+											@if(Auth::user()->branch_id == null)
 												<option value="0">Select Branch</option>
 											@endif
 											@foreach($branch as $value)
@@ -93,7 +93,7 @@
 					                      <td>{{ $value->branch->name }}</td>
 					                      <td>
 					                      	@if($value->asset != '')
-				                          		<a href="{{ route('corporate.asset',$value->asset->id) }}">{{ $value->asset->name }}</a>
+				                          		<a href="{{ route('asset',$value->asset->id) }}">{{ $value->asset->name }}</a>
 				                          	@endif
 					                      </td>
 					                      <td>{{ $value->ProblemDescription }}</td>

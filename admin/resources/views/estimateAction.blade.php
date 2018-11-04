@@ -1,6 +1,6 @@
-@extends('layouts.corporate.master')
+@extends('layouts.master')
 @section('main-content')
-	@if(Auth::guard('corporate')->user()->approverOrConsent == 1) 
+	@if(Auth()->approverOrConsent == 1) 
 		@foreach($jobDetails as $jobDetailsValue)
 			<div class="row" id="invoice">
 				<div class="col-md-10 col-md-offset-1">
@@ -31,7 +31,7 @@
 												<span class="txt-dark head-font inline-block capitalize-font mb-5">Asset : </span>
 											</div>
 											<div class="col-md-9" style="width: 83%;float: right;">
-												<span class="address-head mb-5"><a href="{{ route('corporate.asset',$jobDetailsValue->asset->id) }}">{{ $jobDetailsValue->asset->name }}</a></span>
+												<span class="address-head mb-5"><a href="{{ route('asset',$jobDetailsValue->asset->id) }}">{{ $jobDetailsValue->asset->name }}</a></span>
 											</div>
 										</div>
 										<div class="row"  style="float: left;width: 100%;border-bottom: 1px gray solid;padding: 10px;">
@@ -167,7 +167,7 @@
 								@if($accessOrNot==0 || $approverAccessOrNot==1)
 									<h3 class="text-center">Approve Action</h3>
 									<hr>
-									{{ Form::open(['method' => 'POST','route' => array('corporate.estimate.approved')]) }}
+									{{ Form::open(['method' => 'POST','route' => array('estimate.approved')]) }}
 										{{ csrf_field() }}
 										<div class="row">
 											<div class="col-md-12">

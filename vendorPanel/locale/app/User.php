@@ -3,12 +3,16 @@
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Passport\HasApiTokens;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Auth;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use HasApiTokens,Notifiable,SoftDeletes;
+
+    protected $dates=['deleted_at'];
 
     /**
      * The attributes that are mass assignable.
@@ -27,4 +31,26 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function userType(){
+        return $this->belongsTo('App\UserType','user_Type_Id', 'id');
+    }
+    public function createdBy(){
+        return $this->belongsTo('App\User','created_by', 'id');
+    }
+
+    public static function boot()
+    {
+        parent::boot();
+        static::creating(function ($query) {
+            if (Auth::check()) {
+                $query->created_by = Auth::id();
+            }
+        });
+        static::updating(function ($query) {
+            if (Auth::check()) {
+                $query->updated_by = Auth::id();
+            }
+        });
+    }
 }

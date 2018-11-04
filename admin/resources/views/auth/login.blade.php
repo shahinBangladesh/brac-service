@@ -1,123 +1,92 @@
 <!DOCTYPE html>
-<html lang="en">
-    
-<!-- Mirrored from hencework.com/theme/goofy/full-width-dark/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 24 May 2018 17:19:01 GMT -->
+<html>
 <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-        <title>ESS Login Panel </title>
-        <!-- CSRF Token -->
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-        
-        <!-- Favicon -->
-        <link rel="shortcut icon" href="{{ asset('image/logo.png') }}">
-        <link rel="icon" href="{{ asset('image/logo.png') }}" type="image/x-icon">
-        
-        <!-- vector map CSS -->
-        <link href="{{ asset('css/jasny-bootstrap.min.css') }}" rel="stylesheet" type="text/css"/>
-        
-        
-        
-        <!-- Custom CSS -->
-        <link href="{{ asset('css/theme.css') }}" rel="stylesheet" type="text/css">
-    </head>
-    <body>
-        <!--Preloader-->
-        <div class="preloader-it">
-            <div class="la-anim-1"></div>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Login Panel</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <!-- Bootstrap 3.3.6 -->
+  <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{{ asset('assets/css/AdminLTE.min.css') }}">
+  <!-- iCheck -->
+  <link rel="stylesheet" href="{{ asset('assets/css/blue.css') }}">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+<body class="hold-transition login-page">
+<div class="login-box">
+  <div class="login-logo">
+    <a href="#"><b>Sign</b>In</a>
+  </div>
+  <!-- /.login-logo -->
+  <div class="login-box-body">
+    <p class="login-box-msg">Enter your details below</p>
+
+    <form method="POST" action="{{ route('login') }}">
+      @csrf
+      <div class="form-group has-feedback">
+        <label class="control-label mb-10" for="exampleInputEmail_2">Email address</label>
+        <input id="exampleInputEmail_2" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus placeholder="Enter your Email">
+        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+      </div>
+      <div class="form-group">
+        @if ($errors->has('email'))
+            <span class="invalid-feedback">
+                <strong style="color: red;">{{ $errors->first('email') }}</strong>
+            </span>
+        @endif
+      </div>
+      <div class="form-group has-feedback">
+        <label class="pull-left control-label mb-10" for="exampleInputpwd_2">Password</label>
+        <input id="exampleInputpwd_2" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required placeholder="Enter your password">
+        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+      </div>
+      <div class="form-group">
+        @if ($errors->has('password'))
+            <span class="invalid-feedback">
+                <strong style="color: red;">{{ $errors->first('password') }}</strong>
+            </span>
+        @endif
+      </div>
+      <div class="row">
+        <!-- /.col -->
+        <div class="col-xs-4">
+          <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
         </div>
-        <!--/Preloader-->
-        
-        <div class="wrapper pa-0">
-            <header class="sp-header">
-                <div class="sp-logo-wrap pull-left">
-                    <a href="{{ url('/') }}">
-                        <img class="brand-img mr-10" class="img-responsive" style="width: 100px;" src="{{ asset('image/logo.png') }}" alt="brand"/>
-                    </a>
-                </div>
-                <div class="clearfix"></div>
-            </header>
-            
-            <!-- Main Content -->
-            <div class="page-wrapper pa-0 ma-0 auth-page">
-                <div class="container-fluid">
-                    <!-- Row -->
-                    <div class="table-struct full-width full-height">
-                        <div class="table-cell vertical-align-middle auth-form-wrap">
-                            <div class="auth-form  ml-auto mr-auto no-float">
-                                <div class="row">
-                                    <div class="col-sm-12 col-xs-12">
-                                        <div class="mb-30">
-                                            <h3 class="text-center txt-dark mb-10">Sign in to ESS</h3>
-                                            <h6 class="text-center nonecase-font txt-grey">Enter your details below</h6>
-                                        </div>  
-                                        <div class="form-wrap">
-                                            <form method="POST" action="{{ route('login') }}">
-                                                @csrf
-                                                <div class="form-group">
-                                                    <label class="control-label mb-10" for="exampleInputEmail_2">Email address</label>
-                                                    <input id="exampleInputEmail_2" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
+        <!-- /.col -->
+      </div>
+    </form>
 
-                                                    @if ($errors->has('email'))
-                                                        <span class="invalid-feedback">
-                                                            <strong style="color: red;">{{ $errors->first('email') }}</strong>
-                                                        </span>
-                                                    @endif
-                                                </div>
-                                                <div class="form-group">
-                                                    <label class="pull-left control-label mb-10" for="exampleInputpwd_2">Password</label>
-                                                    <a class="capitalize-font txt-primary block mb-10 pull-right font-12" href="{{ route('password.request') }}">forgot password ?</a>
-                                                    <div class="clearfix"></div>
-                                                    <input id="exampleInputpwd_2" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
+  </div>
+  <!-- /.login-box-body -->
+</div>
+<!-- /.login-box -->
 
-                                                    @if ($errors->has('password'))
-                                                        <span class="invalid-feedback">
-                                                            <strong style="color: red;">{{ $errors->first('password') }}</strong>
-                                                        </span>
-                                                    @endif
-                                                </div>
-                                                
-                                                <div class="form-group">
-                                                    <div class="checkbox checkbox-primary pr-10 pull-left">
-                                                        <input type="checkbox" id="checkbox_2" name="remember" {{ old('remember') ? 'checked' : '' }}> <label for="checkbox_2"> Keep me logged in</label>
-                                                    </div>
-                                                    <div class="clearfix"></div>
-                                                </div>
-                                                <div class="form-group text-center">
-                                                    <button type="submit" class="btn btn-primary  btn-rounded">sign in</button>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>  
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /Row -->   
-                </div>
-                
-            </div>
-            <!-- /Main Content -->
-        
-        </div>
-        <!-- /#wrapper -->
-        
-        <!-- JavaScript -->
-        
-        <!-- jQuery -->
-        <script src="{{ asset('js/jquery.min.js') }}"></script>
-        
-        <!-- Bootstrap Core JavaScript -->
-        <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-        <script src="{{ asset('js/jasny-bootstrap.min.js') }}"></script>
-        
-        <!-- Slimscroll JavaScript -->
-        <script src="{{ asset('js/jquery.slimscroll.js') }}"></script>
-        
-        <!-- Init JavaScript -->
-        <script src="{{ asset('js/init.js') }}"></script>
-    </body>
-
-<!-- Mirrored from hencework.com/theme/goofy/full-width-dark/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 24 May 2018 17:19:01 GMT -->
+<!-- jQuery 2.2.3 -->
+<script src="{{ asset('assets/js/jquery.min.js') }}"></script>
+<!-- Bootstrap 3.3.6 -->
+<script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
+<!-- iCheck -->
+<script src="{{ asset('assets/js/icheck.min.js') }}"></script>
+<script>
+  $(function () {
+    $('input').iCheck({
+      checkboxClass: 'icheckbox_square-blue',
+      radioClass: 'iradio_square-blue',
+      increaseArea: '20%' // optional
+    });
+  });
+</script>
+</body>
 </html>
- 

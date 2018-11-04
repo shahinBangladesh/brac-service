@@ -1,12 +1,12 @@
-@extends('layouts.corporate.master')
+@extends('layouts.master')
 @section('main-content')
-@include('layouts.corporate.messege') 
+@include('layouts.messege') 
 	
 	<section class="content-header">
       <h1><small></small></h1>
       <ol class="breadcrumb">
-        <li><a href="{{ url('/corporate') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li><a href="{{ url('/corporate/branch/index') }}">User</a></li>
+        <li><a href="{{ url('dashboard') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li><a href="{{ url('/branch/index') }}">User</a></li>
         <li class="active">Add New</li>
       </ol>
     </section>
@@ -27,9 +27,9 @@
 					<!-- /.box-header -->
 					<!-- form start -->
 					@if($create==1)
-						{{ Form::open(['method' => 'POST','route' => array('corporate.user.store'),'files'=>true,'role'=>'form','data-toggle'=>'validator']) }}
+						{{ Form::open(['method' => 'POST','route' => array('user.store'),'files'=>true,'role'=>'form','data-toggle'=>'validator']) }}
 					@else
-						{{ Form::model($corporateUser,['method'=>'put','route' => array('corporate.user.update',$corporateUser->id),'files'=>true,'role'=>'form','data-toggle'=>'validator']) }}
+						{{ Form::model($corporateUser,['method'=>'put','route' => array('user.update',$corporateUser->id),'files'=>true,'role'=>'form','data-toggle'=>'validator']) }}
 					@endif
 						{{ csrf_field() }}
 					  <div class="box-body">

@@ -47,7 +47,7 @@
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="{{ route('corporate.dashboard') }}" class="logo">
+    <a href="{{ route('dashboard') }}" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>Corporate</b></span>
       <!-- logo for regular state and mobile devices -->
@@ -76,7 +76,7 @@
                   @if(count($notification)>0)
                     @foreach($notification as $value)
                       <li>
-                        <a href="{{ route('corporate.notification.details',[$value->req_id,$value->id]) }}">
+                        <a href="{{ route('notification.details',[$value->req_id,$value->id]) }}">
                           <span style="background-color: green;padding: 10px;color: white;margin-right: 5px">{{ $value->req_id }} </span>Request @if($value->status !=''){{ $value->status->name }} @endif On {{ $value->created_at->diffForHumans() }}
                         </a>
                       </li>
@@ -85,7 +85,7 @@
                   @if(count($assetNotification)>0)
                     @foreach($assetNotification as $value)
                       <li>
-                        <a href="{{ route('corporate.assetNotification.details',[$value->id]) }}">
+                        <a href="{{ route('assetNotification.details',[$value->id]) }}">
                           <span style="background-color: green;padding: 10px;color: white;margin-right: 5px">{{ $value->id }} </span>Asset Raised On {{ $value->created_at->diffForHumans() }}
                         </a>
                       </li>
@@ -94,7 +94,7 @@
                   @if(count($assetApproveNotification)>0)
                     @foreach($assetApproveNotification as $value)
                       <li>
-                        <a href="{{ route('corporate.assetNotification.details',[$value->id]) }}">
+                        <a href="{{ route('assetNotification.details',[$value->id]) }}">
                           <span style="background-color: green;padding: 10px;color: white;margin-right: 5px">{{ $value->id }} </span>Asset Approved by {{ $value->lastApprove->names }} On {{ $value->lastApprove->created_at->diffForHumans() }}
                         </a>
                       </li>
@@ -103,7 +103,7 @@
                   @if(count($assetOldNotification)>0)
                     @foreach($assetOldNotification as $value)
                       <li>
-                        <a href="{{ route('corporate.assetNotification.details',[$value->id]) }}">
+                        <a href="{{ route('assetNotification.details',[$value->id]) }}">
                           <span style="background-color: #F39C12;padding: 10px;color: white;margin-right: 5px">{{ $value->id }} </span>Asset Raised On {{ $value->created_at->diffForHumans() }}
                         </a>
                       </li>
@@ -113,7 +113,7 @@
                   @if(count($assetOldApproveNotification)>0)
                     @foreach($assetOldApproveNotification as $value)
                       <li>
-                        <a href="{{ route('corporate.assetNotification.details',[$value->id]) }}">
+                        <a href="{{ route('assetNotification.details',[$value->id]) }}">
                           <span style="background-color: #F39C12;padding: 10px;color: white;margin-right: 5px">{{ $value->id }} </span>Asset Approved by {{ $value->lastApprove->names }} On {{ $value->created_at->diffForHumans() }}
                         </a>
                       </li>
@@ -123,7 +123,7 @@
                   @if(count($oldNotification)>0)
                     @foreach($oldNotification as $value)
                       <li>
-                        <a href="{{ route('corporate.notification.details',[$value->req_id,$value->id]) }}">
+                        <a href="{{ route('notification.details',[$value->req_id,$value->id]) }}">
                           <span style="background-color: #F39C12;padding: 10px;color: white;margin-right: 5px">{{ $value->req_id }} </span>Request @if($value->status !=''){{ $value->status->name }} @endif On {{ $value->created_at->diffForHumans() }}
                         </a>
                       </li>
@@ -137,23 +137,23 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="@if(Auth::guard('corporate')->user()->photo != null) {!! asset('image/userPhoto/'.Auth::guard('corporate')->user()->photo) !!}@else{{ asset('image/defaultUser.png') }}@endif" class="user-image" alt="User Image">
+              <img src="@if(Auth::user()->photo != null) {!! asset('image/userPhoto/'.Auth::user()->photo) !!}@else{{ asset('image/defaultUser.png') }}@endif" class="user-image" alt="User Image">
               <span class="hidden-xs">
-                @if(Auth::guard('corporate')->user()->name != null) {!! Auth::guard('corporate')->user()->name !!}@endif
+                @if(Auth::user()->name != null) {!! Auth::user()->name !!}@endif
               </span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="@if(Auth::guard('corporate')->user()->photo != null) {!! asset('image/userPhoto/'.Auth::guard('corporate')->user()->photo) !!}@else{{ asset('image/defaultUser.png') }}@endif" class="img-circle" alt="User Image">
+                <img src="@if(Auth::user()->photo != null) {!! asset('image/userPhoto/'.Auth::user()->photo) !!}@else{{ asset('image/defaultUser.png') }}@endif" class="img-circle" alt="User Image">
 
                 <p>
-                  @if(Auth::guard('corporate')->user()->name != null) {!! Auth::guard('corporate')->user()->name !!}@endif
+                  @if(Auth::user()->name != null) {!! Auth::user()->name !!}@endif
                 </p>
               </li>              <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-right">
-                  <a href="{{ url('corporate/logout') }}" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="{{ url('logout') }}" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>
@@ -173,10 +173,10 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="@if(Auth::guard('corporate')->user()->photo != null) {!! asset('image/userPhoto/'.Auth::guard('corporate')->user()->photo) !!}@else{{ asset('image/defaultUser.png') }}@endif" class="img-circle" alt="User Image">
+          <img src="@if(Auth::user()->photo != null) {!! asset('image/userPhoto/'.Auth::user()->photo) !!}@else{{ asset('image/defaultUser.png') }}@endif" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>@if(Auth::guard('corporate')->user()->name != null) {!! Auth::guard('corporate')->user()->name !!}@endif</p>
+          <p>@if(Auth::user()->name != null) {!! Auth::user()->name !!}@endif</p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
@@ -195,12 +195,12 @@
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
         <li class="active">
-          <a href="{{ route('corporate.dashboard') }}">
+          <a href="{{ route('dashboard') }}">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
-        @if(Auth::guard('corporate')->user()->branch_id == null)
-            @if(Auth::guard('corporate')->user()->approverOrConsent == 1) 
+        @if(Auth::user()->branch_id == null)
+            @if(Auth::user()->approverOrConsent == 1) 
               <li class="treeview">
                 <a href="#">
                   <i class="fa fa-users"></i>
@@ -211,16 +211,16 @@
                 </a>
                 <ul class="treeview-menu">
                   <li>
-                    <a href="{!! route('corporate.user.create') !!}"><i class="fa fa-circle-o"></i> Create</a>
+                    <a href="{!! route('user.create') !!}"><i class="fa fa-circle-o"></i> Create</a>
                   </li>
                   <li>
-                    <a href="{!! route('corporate.user.index') !!}"><i class="fa fa-circle-o"></i> View</a>
+                    <a href="{!! route('user.index') !!}"><i class="fa fa-circle-o"></i> View</a>
                   </li>
                 </ul>
               </li>
              @endif
         @endif
-        @if(Auth::guard('corporate')->user()->branch_id == null)
+        @if(Auth::user()->branch_id == null)
           <li class="treeview">
             <a href="#">
               <i class="fa fa-pie-chart"></i>
@@ -231,10 +231,10 @@
             </a>
             <ul class="treeview-menu">
               <li>
-                <a href="{!! route('corporate.branch.create') !!}"><i class="fa fa-circle-o"></i> Create</a>
+                <a href="{!! route('branch.create') !!}"><i class="fa fa-circle-o"></i> Create</a>
               </li>
               <li>
-                <a href="{!! route('corporate.branch.index') !!}"><i class="fa fa-circle-o"></i> View</a>
+                <a href="{!! route('branch.index') !!}"><i class="fa fa-circle-o"></i> View</a>
               </li>
             </ul>
           </li>
@@ -249,14 +249,14 @@
           </a>
           <ul class="treeview-menu">
             <li>
-              <a href="{!! route('corporate.asset.create') !!}"><i class="fa fa-circle-o"></i> Create</a>
+              <a href="{!! route('asset.create') !!}"><i class="fa fa-circle-o"></i> Create</a>
             </li>
             <li>
-              <a href="{!! route('corporate.asset.index') !!}"><i class="fa fa-circle-o"></i> View</a>
+              <a href="{!! route('asset.index') !!}"><i class="fa fa-circle-o"></i> View</a>
             </li>
           </ul>
         </li>
-        <!-- @if(Auth::guard('corporate')->user()->branch_id == null)
+        <!-- @if(Auth::user()->branch_id == null)
           <li class="treeview">
             <a href="#">
               <i class="fa fa-laptop"></i>
@@ -267,10 +267,10 @@
             </a>
             <ul class="treeview-menu">
               <li>
-                <a href="{!! route('corporate.serviceType.create') !!}"><i class="fa fa-circle-o"></i> Create</a>
+                <a href="{!! route('serviceType.create') !!}"><i class="fa fa-circle-o"></i> Create</a>
               </li>
               <li>
-                <a href="{!! route('corporate.serviceType.index') !!}"><i class="fa fa-circle-o"></i> View</a>
+                <a href="{!! route('serviceType.index') !!}"><i class="fa fa-circle-o"></i> View</a>
               </li>
             </ul>
           </li>
@@ -285,15 +285,15 @@
           </a>
           <ul class="treeview-menu">
             <li>
-              <a href="{!! route('corporate.req.create') !!}"><i class="fa fa-circle-o"></i> Create</a>
+              <a href="{!! route('req.create') !!}"><i class="fa fa-circle-o"></i> Create</a>
             </li>
             <li>
-              <a href="{!! route('corporate.req.index') !!}"><i class="fa fa-circle-o"></i> View</a>
+              <a href="{!! route('req.index') !!}"><i class="fa fa-circle-o"></i> View</a>
             </li>
           </ul>
         </li>
         <li>
-          <a href="{!! route('corporate.req.estimate.reject') !!}">
+          <a href="{!! route('req.estimate.reject') !!}">
             <i class="fa fa-th"></i> 
             <span>Estimate Reject List</span>
             <span class="pull-right-container">
@@ -301,15 +301,15 @@
             </span>
           </a>
         </li>
-        {{-- @if(Auth::guard('corporate')->user()->branch_id == null) --}}
+        {{-- @if(Auth::user()->branch_id == null) --}}
           <li>
-            <a href="{{ route('corporate.reports') }}">
+            <a href="{{ route('reports') }}">
               <i class="fa fa-th"></i> 
               <span>Reports</span>
             </a>
           </li>
           <li>
-            <a href="{{ route('corporate.tatLists') }}">
+            <a href="{{ route('tatLists') }}">
               <i class="fa fa-th"></i> 
               <span>TAT</span>
             </a>

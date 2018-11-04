@@ -1,12 +1,12 @@
-@extends('layouts.corporate.master')
+@extends('layouts.master')
 @section('main-content')
-@include('layouts.corporate.messege') 
+@include('layouts.messege') 
 	
 	<section class="content-header">
       <h1><small></small></h1>
       <ol class="breadcrumb">
-        <li><a href="{{ url('/corporate') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li><a href="{{ url('/corporate/branch/index') }}">Branch</a></li>
+        <li><a href="{{ url('dashboard') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li><a href="{{ url('/branch/index') }}">Branch</a></li>
         <li class="active">Add New</li>
       </ol>
     </section>
@@ -27,9 +27,9 @@
 					<!-- /.box-header -->
 					<!-- form start -->
 					@if($create==1)
-						{{ Form::open(['method' => 'POST','route' => array('corporate.branch.store'),'role'=>'form','files'=>true,'data-toggle'=>'validator']) }}
+						{{ Form::open(['method' => 'POST','route' => array('branch.store'),'role'=>'form','files'=>true,'data-toggle'=>'validator']) }}
 					@else
-						{{ Form::model($branch,['method'=>'put','route' => array('corporate.branch.update',$branch[0]->id),'role'=>'form','data-toggle'=>'validator']) }}
+						{{ Form::model($branch,['method'=>'put','route' => array('branch.update',$branch[0]->id),'role'=>'form','data-toggle'=>'validator']) }}
 					@endif
 						{{ csrf_field() }}
 					  <div class="box-body">

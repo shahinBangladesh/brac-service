@@ -1,4 +1,4 @@
-@extends('layouts.corporate.master')
+@extends('layouts.master')
 @section('main-content')
 	
 	<!-- <div class="row">

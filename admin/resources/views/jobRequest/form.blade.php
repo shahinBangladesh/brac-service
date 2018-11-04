@@ -1,12 +1,12 @@
-@extends('layouts.corporate.master')
+@extends('layouts.master')
 @section('main-content')
-@include('layouts.corporate.messege') 
+@include('layouts.messege') 
 	<link rel="stylesheet" href="{{ asset('assets/css/bootstrap-timepicker.min.css') }}">
 	<section class="content-header">
       <h1><small></small></h1>
       <ol class="breadcrumb">
-        <li><a href="{{ url('/corporate') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li><a href="{{ url('/corporate/req/index') }}">Request Problem</a></li>
+        <li><a href="{{ url('dashboard') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li><a href="{{ url('/req/index') }}">Request Problem</a></li>
         <li class="active">Add New</li>
       </ol>
     </section>
@@ -27,9 +27,9 @@
 					<!-- /.box-header -->
 					<!-- form start -->
 					@if($create==1)
-						{{ Form::open(['method' => 'POST','route' => array('corporate.req.store'),'files'=>true,'role'=>'form','data-toggle'=>'validator']) }}
+						{{ Form::open(['method' => 'POST','route' => array('req.store'),'files'=>true,'role'=>'form','data-toggle'=>'validator']) }}
 					@else
-						{{ Form::model($jobRequest,['method'=>'put','route' => array('corporate.req.update',$jobRequest->id),'files'=>true,'role'=>'form','data-toggle'=>'validator']) }}
+						{{ Form::model($jobRequest,['method'=>'put','route' => array('req.update',$jobRequest->id),'files'=>true,'role'=>'form','data-toggle'=>'validator']) }}
 					@endif
 						{{ csrf_field() }}
 					  <div class="box-body">
@@ -116,7 +116,7 @@
 
 			$('#branchId').on('change',function(){
 				var branchId = $(this).val();
-                var url='{{ route('corporate.assetListFromBranchId') }}';
+                var url='{{ route('assetListFromBranchId') }}';
                 $.ajax({
                     url:url+'?branchId='+branchId,
                 }).done(function(data){

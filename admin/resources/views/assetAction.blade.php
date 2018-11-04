@@ -1,6 +1,6 @@
-@extends('layouts.corporate.master')
+@extends('layouts.master')
 @section('main-content')
-	@if(Auth::guard('corporate')->user()->approverOrConsent == 1) 
+	@if(Auth::user()->approverOrConsent == 1) 
 		@foreach($assetDetails as $value)
 			<div class="row" id="invoice">
 				<div class="col-md-10 col-md-offset-1">
@@ -172,10 +172,10 @@
 									<div class="row" style="margin-top: 20px;float: left;width: 100%;padding: 20px;">
 										<h3 class="text-center">Approve Action</h3>
 
-										@include('layouts.corporate.messege')
+										@include('layouts.messege')
 										
 										<hr>
-										{{ Form::open(['method' => 'POST','route' => array('corporate.asset.approved')]) }}
+										{{ Form::open(['method' => 'POST','route' => array('asset.approved')]) }}
 											{{ csrf_field() }}
 											<div class="row">
 												<div class="col-md-12">

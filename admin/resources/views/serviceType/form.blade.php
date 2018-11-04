@@ -1,6 +1,6 @@
-@extends('layouts.corporate.master')
+@extends('layouts.master')
 @section('main-content')
-@include('layouts.corporate.messege') 
+@include('layouts.messege') 
 	
 	<section class="content-header">
       <h1><small></small></h1>

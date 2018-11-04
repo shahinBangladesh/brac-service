@@ -1,9 +1,9 @@
-@extends('layouts.corporate.master')
+@extends('layouts.master')
 @section('main-content')
-@include('layouts.corporate.messege')  
+@include('layouts.messege')  
   <!-- Content Header (Page header) -->
     <section class="content-header">
-      <a href="{{ route('corporate.branch.create') }}" class="btn btn-primary" style="margin-bottom: 15px;">Add New</a>
+      <a href="{{ route('branch.create') }}" class="btn btn-primary" style="margin-bottom: 15px;">Add New</a>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#">Branch</a></li>
@@ -32,7 +32,7 @@
                     <th>Request</th>
                     <th>Remarks</th>
                     <th>Request Time</th>
-                    @if(Auth::guard('corporate')->user()->approverOrConsent == 1) 
+                    @if(Auth::user()->approverOrConsent == 1) 
                       <th>Action</th>
                     @endif
                   </tr>
@@ -49,7 +49,7 @@
                           </td>
                       <td>
                           @if($value->asset != '')
-                          <a href="{{ route('corporate.asset',$value->asset->id) }}">{{ $value->asset->name }}</a>
+                          <a href="{{ route('asset',$value->asset->id) }}">{{ $value->asset->name }}</a>
                           @endif
                     </td>
                       <td>
@@ -78,7 +78,7 @@
                       <td>
                         <small class="label label-danger"><i class="fa fa-clock-o"></i>@if($value->created_at != '') {{ $value->created_at->diffForHumans() }} @endif</small>
                       </td>
-                      @if(Auth::guard('corporate')->user()->approverOrConsent == 1) 
+                      @if(Auth::user()->approverOrConsent == 1) 
                         <td>
                           <a href="{{ url('estimate/'.$value->id) }}">Actions</a>
                         </td>
@@ -95,7 +95,7 @@
                   <th>Status</th>
                   <th>Request</th>
                   <th>Request Time</th>
-                  @if(Auth::guard('corporate')->user()->approverOrConsent == 1) 
+                  @if(Auth::user()->approverOrConsent == 1) 
                     <th>Action</th>
                   @endif
                 </tr>

@@ -1,9 +1,9 @@
-@extends('layouts.corporate.master')
+@extends('layouts.master')
 @section('main-content')
-@include('layouts.corporate.messege')  
+@include('layouts.messege')  
   <!-- Content Header (Page header) -->
     <section class="content-header">
-      <a href="{{ route('corporate.asset.create') }}" class="btn btn-primary" style="margin-bottom: 15px;">Add New</a>
+      <a href="{{ route('asset.create') }}" class="btn btn-primary" style="margin-bottom: 15px;">Add New</a>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#">Asset</a></li>
@@ -56,11 +56,11 @@
 										<ul role="menu" class="dropdown-menu">
 											@if($value->lastApprove <>'')
 												@if($value->lastApprove->approver_status != 1)
-													<li><a href="{{ route('corporate.asset.edit',$value->id) }}">Edit</a></li>
+													<li><a href="{{ route('asset.edit',$value->id) }}">Edit</a></li>
 												@endif
 											@endif
 											{{-- <li>
-                                                {{ Form::open(['method'=>'delete','route'=>['corporate.asset.destroy',$value->id]]) }}
+                                                {{ Form::open(['method'=>'delete','route'=>['asset.destroy',$value->id]]) }}
                                                 <button style="border: none;background:none;color: red" onclick="return confirm('Are you sure want to be Delete?')"> <i class="fa fa-trash-o"></i> Delete</button>
                                                 {{ Form::close() }}
                                             </li> --}}

@@ -1,8 +1,8 @@
-@extends('layouts.corporate.master')
+@extends('layouts.master')
 @section('main-content')
-@include('layouts.corporate.messege')  
+@include('layouts.messege')  
     <section class="content-header">
-      <a href="{{ route('corporate.req.create') }}" class="btn btn-primary" style="margin-bottom: 15px;">Add New</a>
+      <a href="{{ route('req.create') }}" class="btn btn-primary" style="margin-bottom: 15px;">Add New</a>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#">Job Request</a></li>
@@ -52,7 +52,7 @@
 							</td>
 							<td>
 								@if($value->asset != '')
-									<a href="{{ route('corporate.asset',$value->asset->id) }}">{{ $value->asset->name }}</a>
+									<a href="{{ route('asset',$value->asset->id) }}">{{ $value->asset->name }}</a>
 								@endif
 							</td>
 							<td>{{ $value->Phone }}</td>
@@ -73,8 +73,8 @@
 									<div class="dropdown">
 										<button aria-expanded="false" data-toggle="dropdown" class="btn btn-primary dropdown-toggle " type="button">Action <span class="caret"></span></button>
 										<ul role="menu" class="dropdown-menu">
-											<li><a href="{{ route('corporate.req.edit',$value->id) }}">Edit</a></li>
-											<li><a  href="{{ route('corporate.details',$value->id) }}">Details</a></li>
+											<li><a href="{{ route('req.edit',$value->id) }}">Edit</a></li>
+											<li><a  href="{{ route('details',$value->id) }}">Details</a></li>
 										</ul>
 									</div>
 								</div>
