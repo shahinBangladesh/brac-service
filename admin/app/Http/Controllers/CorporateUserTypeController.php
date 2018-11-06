@@ -17,7 +17,7 @@ class CorporateUserTypeController extends Controller
     {
         $title = 'Corporate User Type View';
         $getData = CorporateUserType::all();
-        return view('admin.corporateUserType.index',compact('title','getData'));
+        return view('user-type.index',compact('title','getData'));
     }
 
     /**
@@ -29,7 +29,7 @@ class CorporateUserTypeController extends Controller
     {
         $title = 'Corporate User Type Create';
         $create = 1;
-        return view('admin.corporateUserType.form',compact('title','create'));
+        return view('user-type.form',compact('title','create'));
     }
 
     /**
@@ -49,7 +49,7 @@ class CorporateUserTypeController extends Controller
         $payment->save();
 
         Session::flash('message','Successfully Created');
-        return redirect()->route('corporateUserType.index');
+        return redirect()->route('user-type.index');
     }
 
     /**
@@ -74,7 +74,7 @@ class CorporateUserTypeController extends Controller
         $data['title'] = 'UserType Edit';
         $data['create'] = 0;
         $data['userType'] = CorporateUserType::findOrFail($id);
-        return view('admin.corporateUserType.form',$data);
+        return view('user-type.form',$data);
     }
 
     /**
@@ -95,7 +95,7 @@ class CorporateUserTypeController extends Controller
         $UserType->save();
 
         Session::flash('message','Successfully Updated');
-        return redirect()->route('user_role.index');
+        return redirect()->route('user-type.index');
     }
 
     /**
@@ -109,6 +109,6 @@ class CorporateUserTypeController extends Controller
         CorporateUserType::findOrFail($id)->delete();
 
         Session::flash('message','Successfully Deleted');
-        return redirect()->route('user_role.index');
+        return redirect()->route('user-type.index');
     }
 }

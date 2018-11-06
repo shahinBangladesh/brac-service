@@ -49,7 +49,7 @@
 			                      <td><small class="label label-success">@if($value->approver <>'') {{  $value->approver->created_at->diffForHumans() }}@endif</small></td>
 			                      <td><small class="label label-danger"><i class="fa fa-clock-o"></i> {{ $value->created_at->diffForHumans() }}</small></td>
 			                      <td>
-			                        @if(Auth::guard('corporate')->user()->approverOrConsent == 1 || Auth::guard('corporate')->user()->approverOrConsent == 2) 
+			                        @if(Auth::user()->approverOrConsent == 1 || Auth::user()->approverOrConsent == 2) 
 			                          <a href="{{ url('req/details/'.$value->id) }}">Details</a>
 			                        @endif
 			                      </td>

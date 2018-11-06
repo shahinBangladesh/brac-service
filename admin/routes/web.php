@@ -4,9 +4,23 @@ Route::get('/', function () {
 })->name('login');
 
 Auth::routes();
-
 Route::group(['middleware'=>['auth','notification']],function (){
   Route::get('dashboard', 'CorporateController@index')->name('dashboard');
+
+  /*User*/
+  Route::get('user/create','CorporateUserController@corporateCreate')->name('user.create');
+  Route::get('user/index','CorporateUserController@corporateIndex')->name('user.index');
+  Route::post('user/create','CorporateUserController@corporateStore')->name('user.store');
+  Route::get('user/{id}/edit','CorporateUserController@corporateEdit')->name('user.edit');
+  Route::put('user/{id}/edit','CorporateUserController@corporateUpdate')->name('user.update');
+  Route::DELETE('user/{id}/destroy','CorporateUserController@corporateDestroy')->name('user.destroy');
+
+  /*User Type*/
+  Route::resource('user-type','CorporateUserTypeController');
+  /*Vendor*/
+  Route::resource('vendor','VendorController');
+
+
   /*Asset*/
   Route::get('asset/create','CorporateAssetController@corporateCreate')->name('asset.create');
   Route::get('asset/approve/{slug}','CorporateAssetController@approve')->name('asset/approve');
@@ -36,15 +50,6 @@ Route::group(['middleware'=>['auth','notification']],function (){
   Route::get('assetNotification/details/{id}','CorporateAssetController@notificationDetails')->name('assetNotification.details');
   Route::get('assetListFromBranchId','CorporateAssetController@assetListFromBranchId')->name('assetListFromBranchId');
   // Route::DELETE('req/{id}/destroy','JobRequestController@CorporateDestroy')->name('req.destroy');
-
-
-  /*User*/
-  Route::get('user/create','CorporateUserController@corporateCreate')->name('user.create');
-  Route::get('user/index','CorporateUserController@corporateIndex')->name('user.index');
-  Route::post('user/create','CorporateUserController@corporateStore')->name('user.store');
-  Route::get('user/{id}/edit','CorporateUserController@corporateEdit')->name('user.edit');
-  Route::put('user/{id}/edit','CorporateUserController@corporateUpdate')->name('user.update');
-  Route::DELETE('user/{id}/destroy','CorporateUserController@corporateDestroy')->name('user.destroy');
 
   /*Service Type*/
   Route::get('serviceType/create','CorporateTypeController@corporateCreate')->name('serviceType.create');

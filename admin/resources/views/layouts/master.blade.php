@@ -204,6 +204,24 @@
               <li class="treeview">
                 <a href="#">
                   <i class="fa fa-users"></i>
+                  <span>User Type</span>
+                  <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li>
+                    <a href="{!! route('user-type.create') !!}"><i class="fa fa-circle-o"></i> Create</a>
+                  </li>
+                  <li>
+                    <a href="{!! route('user-type.index') !!}"><i class="fa fa-circle-o"></i> View</a>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="treeview">
+                <a href="#">
+                  <i class="fa fa-users"></i>
                   <span>Users</span>
                   <span class="pull-right-container">
                     <i class="fa fa-angle-left pull-right"></i>
@@ -215,6 +233,24 @@
                   </li>
                   <li>
                     <a href="{!! route('user.index') !!}"><i class="fa fa-circle-o"></i> View</a>
+                  </li>
+                </ul>
+              </li>
+
+              <li class="treeview">
+                <a href="#">
+                  <i class="fa fa-users"></i>
+                  <span>Vendor</span>
+                  <span class="pull-right-container">
+                    <i class="fa fa-angle-left pull-right"></i>
+                  </span>
+                </a>
+                <ul class="treeview-menu">
+                  <li>
+                    <a href="{!! route('vendor.create') !!}"><i class="fa fa-circle-o"></i> Create</a>
+                  </li>
+                  <li>
+                    <a href="{!! route('vendor.index') !!}"><i class="fa fa-circle-o"></i> View</a>
                   </li>
                 </ul>
               </li>
@@ -256,7 +292,7 @@
             </li>
           </ul>
         </li>
-        <!-- @if(Auth::user()->branch_id == null)
+        @if(Auth::user()->branch_id == null)
           <li class="treeview">
             <a href="#">
               <i class="fa fa-laptop"></i>
@@ -274,7 +310,7 @@
               </li>
             </ul>
           </li>
-        @endif -->
+        @endif
         <li class="treeview">
           <a href="#">
             <i class="fa fa-th"></i> 

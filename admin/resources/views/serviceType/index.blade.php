@@ -3,7 +3,7 @@
 @include('layouts.messege')  
   <!-- Content Header (Page header) -->
     <section class="content-header">
-      <a href="{{ route('corporate.serviceType.create') }}" class="btn btn-primary" style="margin-bottom: 15px;">Add New</a>
+      <a href="{{ route('serviceType.create') }}" class="btn btn-primary" style="margin-bottom: 15px;">Add New</a>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#">Service Type</a></li>
@@ -42,10 +42,10 @@
                           <div class="dropdown">
                             <button aria-expanded="false" data-toggle="dropdown" class="btn btn-primary dropdown-toggle " type="button">Action <span class="caret"></span></button>
                             <ul role="menu" class="dropdown-menu">
-                              <li><a href="{{ route('corporate.serviceType.edit',$value->id) }}">Edit</a></li>
+                              <li><a href="{{ route('serviceType.edit',$value->id) }}">Edit</a></li>
                               @if(Auth::guard('corporate')->user()->approverOrConsent == 1)
                               <li>
-                                  {{ Form::open(['method'=>'delete','route'=>['corporate.serviceType.destroy',$value->id]]) }}
+                                  {{ Form::open(['method'=>'delete','route'=>['serviceType.destroy',$value->id]]) }}
                                   <button style="border: none;background:none;color: red" onclick="return confirm('Are you sure want to be Delete?')"> <i class="fa fa-trash-o"></i> Delete</button>
                                   {{ Form::close() }}
                               </li>

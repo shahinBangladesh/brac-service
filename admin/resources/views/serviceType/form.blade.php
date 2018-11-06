@@ -6,7 +6,7 @@
       <h1><small></small></h1>
       <ol class="breadcrumb">
         <li><a href="{{ url('/corporate') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li><a href="{{ url('/corporate/serviceType/index') }}">Service Type</a></li>
+        <li><a href="{{ url('/serviceType/index') }}">Service Type</a></li>
         <li class="active">Add New</li>
       </ol>
     </section>
@@ -27,9 +27,9 @@
 					<!-- /.box-header -->
 					<!-- form start -->
 					@if($create==1)
-						{{ Form::open(['method' => 'POST','route' => array('corporate.serviceType.store'),'role'=>'form','files'=>true,'data-toggle'=>'validator']) }}
+						{{ Form::open(['method' => 'POST','route' => array('serviceType.store'),'role'=>'form','files'=>true,'data-toggle'=>'validator']) }}
 					@else
-						{{ Form::model($serviceType,['method'=>'put','route' => array('corporate.serviceType.update',$serviceType->id),'role'=>'form','data-toggle'=>'validator']) }}
+						{{ Form::model($serviceType,['method'=>'put','route' => array('serviceType.update',$serviceType->id),'role'=>'form','data-toggle'=>'validator']) }}
 					@endif
 						{{ csrf_field() }}
 					  <div class="box-body">
