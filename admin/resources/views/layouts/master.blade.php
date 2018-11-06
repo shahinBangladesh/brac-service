@@ -3,7 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>{{ count($notification) + count($assetNotification) + count($assetApproveNotification) }} Corporate | Dashboard</title>
+  {{-- <title>{{ count($notification) + count($assetNotification) + count($assetApproveNotification) }} Corporate | Dashboard</title> --}}
+  <title>Corporate | Dashboard</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -66,12 +67,12 @@
           <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
-              <span class="label label-warning">{{ count($notification) + count($assetNotification) + count($assetApproveNotification) }}</span> 
+              {{-- <span class="label label-warning">{{ count($notification) + count($assetNotification) + count($assetApproveNotification) }}</span>  --}}
+              <span class="label label-warning">0</span> 
             </a>
-            <ul class="dropdown-menu" style="background-color: #D0D0A1">
+            {{-- <ul class="dropdown-menu" style="background-color: #D0D0A1">
               <li class="header text-bold text-center" style="border-bottom: 2px gray solid;margin-bottom: 20px;">You have {{ count($notification) + count($assetNotification) + count($assetApproveNotification) }} notifications</li>
               <li>
-                <!-- inner menu: contains the actual data -->
                 <ul class="menu">
                   @if(count($notification)>0)
                     @foreach($notification as $value)
@@ -131,8 +132,8 @@
                   @endif
                 </ul>
               </li>
-              {{-- <li class="footer"><a href="#">View all</a></li> --}}
-            </ul>
+              <li class="footer"><a href="#">View all</a></li>
+            </ul> --}}
           </li>
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">

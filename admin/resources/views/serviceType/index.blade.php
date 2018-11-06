@@ -43,13 +43,13 @@
                             <button aria-expanded="false" data-toggle="dropdown" class="btn btn-primary dropdown-toggle " type="button">Action <span class="caret"></span></button>
                             <ul role="menu" class="dropdown-menu">
                               <li><a href="{{ route('serviceType.edit',$value->id) }}">Edit</a></li>
-                              @if(Auth::guard('corporate')->user()->approverOrConsent == 1)
+                              {{-- @if(Auth::guard('corporate')->user()->approverOrConsent == 1)
                               <li>
                                   {{ Form::open(['method'=>'delete','route'=>['serviceType.destroy',$value->id]]) }}
                                   <button style="border: none;background:none;color: red" onclick="return confirm('Are you sure want to be Delete?')"> <i class="fa fa-trash-o"></i> Delete</button>
                                   {{ Form::close() }}
                               </li>
-                              @endif
+                              @endif --}}
                             </ul>
                           </div>
                         </div>

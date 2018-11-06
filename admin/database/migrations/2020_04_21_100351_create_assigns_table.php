@@ -18,20 +18,13 @@ class CreateAssignsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('job_request_id');
             $table->foreign('job_request_id')->references('id')->on('job_requests')->onDelete('cascade');
-            $table->unsignedInteger('service_id');
-            $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
-
-            $table->unsignedInteger('AssignTo');
-            $table->foreign('AssignTo')->references('id')->on('users')->onDelete('cascade');
-
-            $table->string('TechnicalInput')->nullable();
+            $table->unsignedInteger('assign_to');
+            $table->foreign('assign_to')->references('id')->on('vendors')->onDelete('cascade');
+            $table->string('technical_input')->nullable();
             $table->timestamp('leave_time')->nullable();
-
-            $table->unsignedInteger('AssignedBy');
-            $table->foreign('AssignedBy')->references('id')->on('users')->onDelete('cascade');
-
-            // $table->nullableTimestamps('AssignDate');
-            $table->timestamp('AssignDate')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->unsignedInteger('assigned_by');
+            $table->foreign('assigned_by')->references('id')->on('users')->onDelete('cascade');
+            $table->timestamp('assign_date')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamps();
             $table->softDeletes();
         });

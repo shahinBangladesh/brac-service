@@ -4,8 +4,9 @@ Route::get('/', function () {
 })->name('login');
 
 Auth::routes();
-Route::group(['middleware'=>['auth','notification']],function (){
-  Route::get('dashboard', 'CorporateController@index')->name('dashboard');
+Route::group(['middleware'=>['auth'/*,'notification'*/]],function (){
+  // Route::get('dashboard', 'CorporateController@index')->name('dashboard');
+  Route::get('dashboard', 'DashboardController@index')->name('dashboard');
 
   /*User*/
   Route::get('user/create','CorporateUserController@corporateCreate')->name('user.create');
