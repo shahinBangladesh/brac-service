@@ -13,20 +13,8 @@
 @endif
 {{--set some message after action--}}
 @if (Session::has('message'))
-    <script type="text/javascript">
-    $(window).on("load",function(){
-        window.setTimeout(function(){
-            $.toast({
-                heading: '{{ Session::get("message") }}',
-                text: '',
-                position: 'bottom-left',
-                loaderBg:'#7BAB44',
-                icon: '',
-                hideAfter: 150000, 
-                stack: 6
-            });
-        }, 1000);
-    });
-    /*****Load function* end*****/
-    </script>
+    <ul class="alert alert-success fade in animated slideInRight alert-dismissable">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close"><i  class="fa fa-times" aria-hidden="true"></i></a>
+        <li>{{ Session::get('message') }}</li>
+    </ul>
 @endif

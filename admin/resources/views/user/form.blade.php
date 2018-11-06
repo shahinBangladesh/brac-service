@@ -50,8 +50,8 @@
 									<div class="help-block">Minimum of 6 characters</div>
 								</div>
 								<div class="form-group col-sm-12">
-									<label style="margin-bottom: 5px;" for="confirmPassword" class="control-label">Confirm Password</label>
-									<input type="password" name="password" class="form-control" id="inputPasswordConfirm" data-match="#inputPassword" data-match-error="Whoops, these don't match" placeholder="Confirm" @if($create==1) required @endif>
+									<label style="margin-bottom: 5px;" for="password_confirmation" class="control-label">Confirm Password</label>
+									<input type="password" name="password_confirmation" class="form-control" id="password_confirmation" data-match="#inputPassword" data-match-error="Whoops, these don't match" placeholder="Confirm Password" @if($create==1) required @endif>
 									<div class="help-block with-errors"></div>
 								</div>
 							</div>

@@ -15,6 +15,7 @@ class ServiceType extends Seeder
     {
         DB::table('service_types')->insert([
             'name' => 'AC',
+            'org_id' => 1,
             'created_by' => 1,
             'created_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);

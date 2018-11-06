@@ -7,22 +7,22 @@ Auth::routes();
 Route::group(['middleware'=>['auth'/*,'notification'*/]],function (){
   // Route::get('dashboard', 'CorporateController@index')->name('dashboard');
   Route::get('dashboard', 'DashboardController@index')->name('dashboard');
-
-  /*User*/
-  Route::get('user/create','CorporateUserController@corporateCreate')->name('user.create');
+  
+  // User Type
+  Route::resource('user-type','UserTypeController');
+  
+  // User
+  Route::resource('user','UserController');
+  /*Route::get('user/create','CorporateUserController@corporateCreate')->name('user.create');
   Route::get('user/index','CorporateUserController@corporateIndex')->name('user.index');
   Route::post('user/create','CorporateUserController@corporateStore')->name('user.store');
   Route::get('user/{id}/edit','CorporateUserController@corporateEdit')->name('user.edit');
   Route::put('user/{id}/edit','CorporateUserController@corporateUpdate')->name('user.update');
-  Route::DELETE('user/{id}/destroy','CorporateUserController@corporateDestroy')->name('user.destroy');
-
-  /*User Type*/
-  Route::resource('user-type','CorporateUserTypeController');
-  /*Vendor*/
-  Route::resource('vendor','VendorController');
-
-
-  /*Asset*/
+  Route::DELETE('user/{id}/destroy','CorporateUserController@corporateDestroy')->name('user.destroy');*/
+  
+  // Vendor
+  Route::resource('vendor-company','VendorCompanyController');
+  // Asset
   Route::get('asset/create','CorporateAssetController@corporateCreate')->name('asset.create');
   Route::get('asset/approve/{slug}','CorporateAssetController@approve')->name('asset/approve');
   Route::get('asset/index','CorporateAssetController@corporateIndex')->name('asset.index');
@@ -31,13 +31,14 @@ Route::group(['middleware'=>['auth'/*,'notification'*/]],function (){
   Route::put('asset/{id}/edit','CorporateAssetController@corporateUpdate')->name('asset.update');
   Route::DELETE('asset/{id}/destroy','CorporateAssetController@corporateDestroy')->name('asset.destroy');
 
-  /*Branch*/
-  Route::get('branch/create','BranchController@corporateCreate')->name('branch.create');
+  // Branch
+  Route::resource('branch','BranchController');
+/*  Route::get('branch/create','BranchController@corporateCreate')->name('branch.create');
   Route::get('branch/index','BranchController@corporateIndex')->name('branch.index');
   Route::post('branch/create','BranchController@corporateStore')->name('branch.store');
   Route::get('branch/{id}/edit','BranchController@corporateEdit')->name('branch.edit');
   Route::put('branch/{id}/edit','BranchController@corporateUpdate')->name('branch.update');
-  Route::DELETE('branch/{id}/destroy','BranchController@corporateDestroy')->name('branch.destroy');
+  Route::DELETE('branch/{id}/destroy','BranchController@corporateDestroy')->name('branch.destroy');*/
 
   /*Request*/
   Route::get('req/create','JobRequestController@corporateCreate')->name('req.create');

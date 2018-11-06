@@ -29,27 +29,27 @@
 					@if($create==1)
 						{{ Form::open(['method' => 'POST','route' => array('branch.store'),'role'=>'form','files'=>true,'data-toggle'=>'validator']) }}
 					@else
-						{{ Form::model($branch,['method'=>'put','route' => array('branch.update',$branch[0]->id),'role'=>'form','data-toggle'=>'validator']) }}
+						{{ Form::model($branch,['method'=>'put','route' => array('branch.update',$branch->id),'role'=>'form','data-toggle'=>'validator']) }}
 					@endif
 						{{ csrf_field() }}
 					  <div class="box-body">
 					    <div class="form-group">
 							<label for="name" class="control-label mb-10">Name</label>
-							{{ Form::text('name',(isset($branch)?$branch[0]->name:null),['class'=>'form-control','required','placeholder'=>'Enter Name','id'=>'name']) }}
+							{{ Form::text('name',(isset($branch)?$branch->name:null),['class'=>'form-control','required','placeholder'=>'Enter Name','id'=>'name']) }}
 						</div>
 						<div class="form-group">
 							<label for="location" class="control-label mb-10">Location</label>
-							{{ Form::text('location',(isset($branch)?$branch[0]->location:null),['class'=>'form-control','placeholder'=>'Enter location','id'=>'location']) }}
+							{{ Form::text('location',(isset($branch)?$branch->location:null),['class'=>'form-control','placeholder'=>'Enter location','id'=>'location']) }}
 						</div>
 						<div class="form-group">
 							<label for="hq" class="control-label mb-10">HQ</label>
-							<input type="radio" <?php if(isset($branch)){if($branch[0]->hq==1) echo 'checked="checked"';} ?> id="hq" name="hq" value="1"> Yes 
-							<input type="radio" <?php if(isset($branch)){if($branch[0]->hq==0) echo 'checked="checked"';} ?>  id="hq" checked="checked" name="hq" value="0"> No
+							<input type="radio" <?php if(isset($branch)){if($branch->hq==1) echo 'checked="checked"';} ?> id="hq" name="hq" value="1"> Yes 
+							<input type="radio" <?php if(isset($branch)){if($branch->hq==0) echo 'checked="checked"';} ?>  id="hq" checked="checked" name="hq" value="0"> No
 						</div>
 						<div class="form-group">
 							<label for="booth" class="control-label mb-10">Booth</label>
-							<input type="radio" <?php if(isset($branch)){if($branch[0]->booth==1) echo 'checked="checked"';} ?>  id="booth" name="booth" value="1"> Yes 
-							<input type="radio" <?php if(isset($branch)){if($branch[0]->booth==0) echo 'checked="checked"';} ?>  id="booth" checked="checked" name="booth" value="0"> No
+							<input type="radio" <?php if(isset($branch)){if($branch->booth==1) echo 'checked="checked"';} ?>  id="booth" name="booth" value="1"> Yes 
+							<input type="radio" <?php if(isset($branch)){if($branch->booth==0) echo 'checked="checked"';} ?>  id="booth" checked="checked" name="booth" value="0"> No
 						</div>
 					  </div>
 					  <!-- /.box-body -->

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   {{-- <title>{{ count($notification) + count($assetNotification) + count($assetApproveNotification) }} Corporate | Dashboard</title> --}}
-  <title>Corporate | Dashboard</title>
+  <title>@isset($title) {{ $title }} @endisset</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -248,10 +248,10 @@
                 </a>
                 <ul class="treeview-menu">
                   <li>
-                    <a href="{!! route('vendor.create') !!}"><i class="fa fa-circle-o"></i> Create</a>
+                    <a href="{!! route('vendor-company.create') !!}"><i class="fa fa-circle-o"></i> Create</a>
                   </li>
                   <li>
-                    <a href="{!! route('vendor.index') !!}"><i class="fa fa-circle-o"></i> View</a>
+                    <a href="{!! route('vendor-company.index') !!}"><i class="fa fa-circle-o"></i> View</a>
                   </li>
                 </ul>
               </li>

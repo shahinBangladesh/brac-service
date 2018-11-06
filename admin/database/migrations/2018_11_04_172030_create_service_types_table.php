@@ -16,6 +16,8 @@ class CreateServiceTypesTable extends Migration
         Schema::create('service_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->unsignedInteger('org_id');
+            $table->foreign('org_id')->references('id')->on('organizations')->onDelete('cascade');
             $table->unsignedInteger('created_by');
             $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
             $table->softDeletes();

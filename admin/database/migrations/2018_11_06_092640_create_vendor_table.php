@@ -17,6 +17,8 @@ class CreateVendorTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('vendor_user_type_id')->default('1');
             $table->foreign('vendor_user_type_id')->references('id')->on('vendor_user_types')->onDelete('cascade');
+            $table->unsignedInteger('org_id');
+            $table->foreign('org_id')->references('id')->on('organizations')->onDelete('cascade');
             $table->string('name');
             $table->string('phone')->nullable();
             $table->string('photo')->nullable();
