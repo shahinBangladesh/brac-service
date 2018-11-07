@@ -23,13 +23,14 @@ Route::group(['middleware'=>['auth'/*,'notification'*/]],function (){
   // Vendor
   Route::resource('vendor-company','VendorCompanyController');
   // Asset
-  Route::get('asset/create','CorporateAssetController@corporateCreate')->name('asset.create');
+  Route::resource('asset','AssetController');
+/*  Route::get('asset/create','CorporateAssetController@corporateCreate')->name('asset.create');
   Route::get('asset/approve/{slug}','CorporateAssetController@approve')->name('asset/approve');
   Route::get('asset/index','CorporateAssetController@corporateIndex')->name('asset.index');
   Route::post('asset/create','CorporateAssetController@corporateStore')->name('asset.store');
   Route::get('asset/{id}/edit','CorporateAssetController@corporateEdit')->name('asset.edit');
   Route::put('asset/{id}/edit','CorporateAssetController@corporateUpdate')->name('asset.update');
-  Route::DELETE('asset/{id}/destroy','CorporateAssetController@corporateDestroy')->name('asset.destroy');
+  Route::DELETE('asset/{id}/destroy','CorporateAssetController@corporateDestroy')->name('asset.destroy');*/
 
   // Branch
   Route::resource('branch','BranchController');

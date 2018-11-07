@@ -25,6 +25,7 @@ class AssetController extends Controller
      */
     public function index()
     {
+        dd('sdf');
         $title = 'Asset View';
         $getData = Asset::with('type')->with('organization')->with('branch')->get();
         return view('admin.asset.index',compact('title','getData'));
