@@ -19,9 +19,10 @@ class VendorCompanyController extends Controller
     public function index()
     {
         if(Auth::user()->branch_id == 0){
-            $title = 'Vendors View';
-            $getData = VendorCompany::where('org_id',Auth::user()->org_id)->orderByDesc('id')->get();
-            return view('vendorCompany.index',compact('title','getData'));
+            $data['title'] = 'Vendors View';
+            $data['getData'] = VendorCompany::where('org_id',Auth::user()->org_id)->orderByDesc('id')->get();
+
+            return view('vendorCompany.index',$data);
         }else{
             return redirect()->route('dashboard');
         }

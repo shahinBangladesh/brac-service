@@ -42,25 +42,27 @@ Route::group(['middleware'=>['auth'/*,'notification'*/]],function (){
   Route::DELETE('branch/{id}/destroy','BranchController@corporateDestroy')->name('branch.destroy');*/
 
   /*Request*/
-  Route::get('req/create','JobRequestController@corporateCreate')->name('req.create');
+  Route::get('req/create','JobRequestsController@create')->name('req.create');
   Route::get('req/estimate/reject','CorporateController@rejectEstimate')->name('req.estimate.reject');
-  Route::get('req/index','JobRequestController@CorporateIndex')->name('req.index');
-  Route::post('req/create','JobRequestController@CorporateStore')->name('req.store');
-  Route::get('req/{id}/edit','JobRequestController@CorporateEdit')->name('req.edit');
-  Route::put('req/{id}/edit','JobRequestController@CorporateUpdate')->name('req.update');
-  Route::get('req/details/{jobId}','JobRequestController@CorporateDetails')->name('details');
-  Route::get('notification/details/{jobId}/{notificationId}','JobRequestController@CorporateDetails')->name('notification.details');
+  Route::get('req/index','JobRequestsController@index')->name('req.index');
+  Route::post('req/create','JobRequestsController@store')->name('req.store');
+  Route::get('req/{id}/edit','JobRequestsController@edit')->name('req.edit');
+  Route::put('req/{id}/edit','JobRequestsController@update')->name('req.update');
+  Route::get('req/details/{jobId}','JobRequestsController@show')->name('details');
+  Route::get('notification/details/{jobId}/{notificationId}','JobRequestsController@show')->name('notification.details');
   Route::get('assetNotification/details/{id}','CorporateAssetController@notificationDetails')->name('assetNotification.details');
-  Route::get('assetListFromBranchId','CorporateAssetController@assetListFromBranchId')->name('assetListFromBranchId');
-  // Route::DELETE('req/{id}/destroy','JobRequestController@CorporateDestroy')->name('req.destroy');
+  Route::get('assetListFromBranchId','AssetController@assetListFromBranchId')->name('assetListFromBranchId');
+  // Route::DELETE('req/{id}/destroy','JobRequestsController@CorporateDestroy')->name('req.destroy');
 
   /*Service Type*/
-  Route::get('serviceType/create','CorporateTypeController@corporateCreate')->name('serviceType.create');
+  Route::resource('service','ServiceController');
+  Route::resource('serviceType','ServiceTypeController');
+/*  Route::get('serviceType/create','CorporateTypeController@corporateCreate')->name('serviceType.create');
   Route::get('serviceType/index','CorporateTypeController@corporateIndex')->name('serviceType.index');
   Route::post('serviceType/create','CorporateTypeController@corporateStore')->name('serviceType.store');
   Route::get('serviceType/{id}/edit','CorporateTypeController@corporateEdit')->name('serviceType.edit');
   Route::put('serviceType/{id}/edit','CorporateTypeController@corporateUpdate')->name('serviceType.update');
-  Route::DELETE('serviceType/{id}/destroy','CorporateTypeController@corporateDestroy')->name('serviceType.destroy');
+  Route::DELETE('serviceType/{id}/destroy','CorporateTypeController@corporateDestroy')->name('serviceType.destroy');*/
 
   /*Approval Action*/
   Route::get('approved/{id}','CorporateController@approveAction')->name('approved');

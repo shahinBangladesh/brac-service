@@ -50,9 +50,9 @@
     <!-- Logo -->
     <a href="{{ route('dashboard') }}" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>eTraceability</b></span>
+      <span class="logo-mini"><b>Corporate</b></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>eTraceability</b></span>
+      <span class="logo-lg"><b>Corporate</b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -308,6 +308,23 @@
               </li>
               <li>
                 <a href="{!! route('serviceType.index') !!}"><i class="fa fa-circle-o"></i> View</a>
+              </li>
+            </ul>
+          </li>
+          <li class="treeview">
+            <a href="#">
+              <i class="fa fa-laptop"></i>
+              <span>Service</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li>
+                <a href="{!! route('service.create') !!}"><i class="fa fa-circle-o"></i> Create</a>
+              </li>
+              <li>
+                <a href="{!! route('service.index') !!}"><i class="fa fa-circle-o"></i> View</a>
               </li>
             </ul>
           </li>

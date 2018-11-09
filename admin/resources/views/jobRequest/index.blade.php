@@ -26,11 +26,12 @@
 					<th>Service</th>
 					<th>Branch</th>
 					<th>Asset</th>
+					<th>Status</th>
 					<th>Phone</th>
 					<th>Problem</th>
 					<th>Expected Date</th>
 					<th>Expected Time</th>
-					<th>Payment</th>
+					{{-- <th>Payment</th> --}}
 					<th>Created At</th>
 					<th>Action</th>
                   </tr>
@@ -55,18 +56,23 @@
 									<a href="{{ route('asset',$value->asset->id) }}">{{ $value->asset->name }}</a>
 								@endif
 							</td>
-							<td>{{ $value->Phone }}</td>
-							<td>{{ $value->ProblemDescription }}</td>
-							<td>{{ $value->ExpectedDate }}</td>
-							<td>{{ $value->ExpectedTime }}</td>
 							<td>
-								@if($value->payment_jobs != '')
+								@if($value->status != '')
+									{{ $value->status->name }}
+								@endif
+							</td>
+							<td>{{ $value->phone }}</td>
+							<td>{{ $value->ProblemDescription }}</td>
+							<td>{{ $value->expectedDate }}</td>
+							<td>{{ $value->expectedTime }}</td>
+							<!-- <td>
+								{{-- @if($value->payment_jobs != '')
 									<?php 
 									$vat = ($value->payment_jobs->amount * $value->payment_jobs->vat)/100
 									?>
 									{{ ($value->payment_jobs->amount + $vat)-$value->payment_jobs->discount }}
-								@endif
-							</td>
+								@endif --}}
+							</td> -->
 							<td>{{ $value->created_at }}</td>
 							<td>
 								<div class="btn-group">
@@ -89,10 +95,12 @@
 					<th>Service</th>
 					<th>Branch</th>
 					<th>Asset</th>
+					<th>Status</th>
+					<th>Phone</th>
 					<th>Problem</th>
 					<th>Expected Date</th>
 					<th>Expected Time</th>
-					<th>Payment</th>
+					{{-- <th>Payment</th> --}}
 					<th>Created At</th>
 					<th>Action</th>
                 </tr>

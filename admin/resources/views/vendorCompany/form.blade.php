@@ -6,7 +6,7 @@
       <h1><small></small></h1>
       <ol class="breadcrumb">
         <li><a href="{{ url('dashboard') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li><a href="{{ url('/branch/index') }}">Vendor</a></li>
+        <li><a href="{{ url('/branch/index') }}">Vendor Company</a></li>
         <li class="active">Add New</li>
       </ol>
     </section>

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Asset extends Model
 {
-	public function type(){
+	public function serviceType(){
 		return $this->belongsTo('App\ServiceType','service_type_id','id');
 	}
 	public function organization(){

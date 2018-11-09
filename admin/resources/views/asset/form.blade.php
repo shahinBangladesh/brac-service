@@ -35,21 +35,11 @@
 					  <div class="box-body">
 					    <div class="form-group">
 							<label for="Type" class="control-label mb-10">Type</label>
-							<select class="form-control" name="type_id" required="required">
-								<option value="">Select Type</option>
-								@foreach($type as $value)
-									<option <?php if(isset($asset)){if($asset->type_id==$value->id) echo 'selected="selected"';} ?> value="{{ $value->id }}">{{ $value->name }}</option>
-								@endforeach
-							</select>
+							{!! Form::select('type_id',$type,(isset($type)?$type:null), ['class'=>'form-control','placeholder'=>'Choose Type','required'=>'required']) !!}
 						</div>
 						<div class="form-group">
 							<label for="branch" class="control-label mb-10">Branch</label>
-							<select class="form-control" name="branch_id" required="required">
-								<option value="">Select Type</option>
-								@foreach($branch as $value)
-									<option <?php if(isset($asset)){if($asset->branch_id==$value->id) echo 'selected="selected"';} ?> value="{{ $value->id }}">{{ $value->name }}</option>
-								@endforeach
-							</select>
+							{!! Form::select('branch_id',$branch,(isset($branch)?$branch:null), ['class'=>'form-control','placeholder'=>'Choose Branch','required'=>'required']) !!}
 						</div>
 						<div class="form-group">
 							<label for="brand" class="control-label mb-10">Brand</label>
@@ -76,7 +66,7 @@
 							{{ Form::text('warrenty_period',(isset($asset)?$asset->warrenty_period:null),['class'=>'form-control','placeholder'=>'Enter warrenty_period','id'=>'warrenty_period']) }}
 						</div>
 						<div class="form-group">
-							<label for="name" class="control-label mb-10">Asset No</label>
+							<label for="name" class="control-label mb-10">Asset No/Name</label>
 							{{ Form::text('name',(isset($asset)?$asset->name:null),['class'=>'form-control','placeholder'=>'Enter Asset No','id'=>'name']) }}
 						</div>
 						<div class="form-group">

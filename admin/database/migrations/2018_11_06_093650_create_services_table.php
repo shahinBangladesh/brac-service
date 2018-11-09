@@ -15,8 +15,12 @@ class CreateServicesTable extends Migration
     {
         Schema::create('services', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('org_id')->nullable();
+            $table->foreign('org_id')->references('id')->on('organizations')->onDelete('cascade');
             $table->unsignedInteger('service_type_id')->nullable();
             $table->foreign('service_type_id')->references('id')->on('service_types')->onDelete('cascade');
+            $table->unsignedInteger('vendor_id')->nullable();
+            $table->foreign('vendor_id')->references('id')->on('vendors')->onDelete('cascade');
             $table->string('name');
             $table->unsignedInteger('base_price')->default('0');
             $table->text('description')->nullable();

@@ -8,7 +8,7 @@ use App\User;
 use App\ServiceType;
 use App\Organization;
 use App\Branch;
-use App\AssetApprover;
+use App\AssetApprove;
 use Carbon\Carbon;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -25,23 +25,15 @@ class AssetController extends Controller
      */
     public function index()
     {
-        dd('sdf');
-        $title = 'Asset View';
-        $getData = Asset::with('type')->with('organization')->with('branch')->get();
-        return view('admin.asset.index',compact('title','getData'));
-    }
-    public function corporateIndex()
-    {
-        $corporate = Corporate::where('id',Auth::guard('corporate')->id())->get();
-        $title = 'Asset View';
-        $corporate = Corporate::where('id',Auth::guard('corporate')->id())->get();
-        $getData = Asset::where(function($query) use ($corporate){
-                                                                $query->where('org_id',$corporate[0]->org_id);
+        $data['title'] = 'Asset View';
+        $auth = Auth::user();
+        $data['getData'] = Asset::where(function($query) use ($auth){
+                                                                $query->where('org_id',$auth->org_id);
                                                                 $query->where('approveOrNot',1);
-                                                                if($corporate[0]->branch_id <>'')
-                                                                    $query->where('branch_id',$corporate[0]->branch_id);
+                                                                if($auth->branch_id != 0)
+                                                                    $query->where('branch_id',$auth->branch_id);
                                                                 })->get();
-        return view('corporate.asset.index',compact('title','getData'));
+        return view('asset.index',$data);
     }
 
     /**
@@ -53,23 +45,15 @@ class AssetController extends Controller
     {
         $data['title'] = 'Asset Create';
         $data['create'] = 1;
-        $data['type'] = Type::all();
-        $data['organization'] = Organization::all();
-        $data['branch'] = Branch::all();
-        return view('admin.asset.form')->with($data);
-    }
-    public function corporateCreate()
-    {
-        $data['title'] = 'Asset Create';
-        $data['create'] = 1;
-        $data['type'] = Type::all();
-        $corporate = Corporate::where('id',Auth::guard('corporate')->id())->get();
-        $data['branch'] = Branch::where(function($query) use ($corporate){
-                                                                            $query->where('org_id',$corporate[0]->org_id);
-                                                                            if($corporate[0]->branch_id <>'')
-                                                                                $query->where('id',$corporate[0]->branch_id);
-                                                                            })->get();
-        return view('corporate.asset.form')->with($data);
+        $auth = Auth::user();
+        $data['type'] = ServiceType::where('org_id',$auth->org_id)->pluck('name','id');
+        $data['branch'] = Branch::where(function($query) use ($auth){
+                                                                            $query->where('org_id',$auth->org_id);
+                                                                            if($auth->branch_id <>'')
+                                                                                $query->where('id',$auth->branch_id);
+                                                                            })->pluck('name','id');
+        
+        return view('asset.form')->with($data);
     }
 
     /**
@@ -85,61 +69,24 @@ class AssetController extends Controller
         ]);
 
         $asset = new Asset();
-        $asset->name = $request->name;
-        $asset->location = $request->location;
-        $asset->floor = $request->floor;
-        $asset->type_id = $request->type_id;
-        $asset->model = $request->model;
-        $asset->capacity = $request->capacity;
-        $asset->org_id = $request->org_id;
-        $asset->branch_id = $request->branch_id;
-        $asset->barrier = $request->barrier;
-        $asset->remarks = $request->remarks;
-        $asset->age = $request->age;
-        $asset->remains = $request->remains;
-        $asset->warrenty = $request->warrenty;
-        $asset->expected_lifetime = $request->expected_lifetime;
-        $asset->costing = $request->costing;
-        $asset->save();
-
-        Session::flash('message','Successfully Created');
-        return redirect()->route('asset.index');
-    }
-    public function corporateStore(Request $request)
-    {
-        $request->validate([
-            'name' => 'required'
-        ]);
-
-        $corporate = Corporate::where('id',Auth::guard('corporate')->id())->get();
-
-        $asset = new Asset();
         $asset->brand = $request->brand;
         $asset->serial_no = $request->serial_no;
-        // $asset->asset_no = $request->asset_no;
         $asset->vendor_showroom = $request->vendor_showroom;
         $asset->purchase_date = $request->purchase_date;
         $asset->warrenty_period = $request->warrenty_period;
         $asset->name = $request->name;
         $asset->location = $request->location;
         $asset->floor = $request->floor;
-        $asset->type_id = $request->type_id;
+        $asset->service_type_id = $request->type_id;
         $asset->model = $request->model;
         $asset->capacity = $request->capacity;
-        $asset->org_id = $corporate[0]->org_id;
+        $asset->org_id = Auth::user()->org_id;
         $asset->branch_id = $request->branch_id;
         $asset->notification = 1;
-        /*$asset->barrier = $request->barrier;
-        $asset->remarks = $request->remarks;
-        $asset->age = $request->age;
-        $asset->remains = $request->remains;
-        $asset->warrenty = $request->warrenty;
-        $asset->expected_lifetime = $request->expected_lifetime;
-        $asset->costing = $request->costing;*/
         $asset->save();
 
         Session::flash('message','Successfully Created');
-        return redirect()->route('corporate.asset.index');
+        return redirect()->route('asset.index');
     }
 
     /**
@@ -159,26 +106,20 @@ class AssetController extends Controller
      * @param  \App\status  $status
      * @return \Illuminate\Http\Response
      */
-    public function edit(asset $asset)
+    public function edit($id)
     {
         $data['title'] = 'Asset Edit';
         $data['create'] = 0;
-        $data['type'] = Type::all();
-        $data['organization'] = Organization::all();
-        $data['asset'] = Asset::findOrFail($asset);
-        $data['branch'] = Branch::all();
-        return view('admin.asset.form')->with($data);
-    }
-    public function corporateEdit($id)
-    {
-        $data['title'] = 'Asset Edit';
-        $data['create'] = 0;
-        $data['type'] = Type::all();
+        $auth = Auth::user();
+        $data['type'] = ServiceType::where('org_id',$auth->org_id)->pluck('name','id');
+        $data['branch'] = Branch::where(function($query) use ($auth){
+                                                                            $query->where('org_id',$auth->org_id);
+                                                                            if($auth->branch_id <>'')
+                                                                                $query->where('id',$auth->branch_id);
+                                                                            })->pluck('name','id');
         $data['asset'] = Asset::findOrFail($id);
-        $corporate = Corporate::where('id',Auth::guard('corporate')->id())->get();
-        $data['branch'] = Branch::where('org_id',$corporate[0]->org_id)->get();
         
-        return view('corporate.asset.form')->with($data);
+        return view('asset.form')->with($data);
     }
 
     /**
@@ -195,60 +136,25 @@ class AssetController extends Controller
         ]);
 
         $asset = Asset::findOrFail($id);
-        $asset->name = $request->name;
-        $asset->location = $request->location;
-        $asset->floor = $request->floor;
-        $asset->type_id = $request->type_id;
-        $asset->model = $request->model;
-        $asset->capacity = $request->capacity;
-        $asset->org_id = $request->org_id;
-        $asset->branch_id = $request->branch_id;
-        $asset->barrier = $request->barrier;
-        $asset->remarks = $request->remarks;
-        $asset->age = $request->age;
-        $asset->remains = $request->remains;
-        $asset->warrenty = $request->warrenty;
-        $asset->expected_lifetime = $request->expected_lifetime;
-        $asset->costing = $request->costing;
-        $asset->save();
-
-        Session::flash('message','Successfully Updated');
-        return redirect()->route('asset.index');
-    }
-    public function corporateUpdate($id,Request $request)
-    {
-        $request->validate([
-            'name' => 'required'
-        ]);
-
-        $corporate = Corporate::where('id',Auth::guard('corporate')->id())->get();
-        $asset = Asset::findOrFail($id);
         $asset->brand = $request->brand;
         $asset->serial_no = $request->serial_no;
-        // $asset->asset_no = $request->asset_no;
         $asset->vendor_showroom = $request->vendor_showroom;
         $asset->purchase_date = $request->purchase_date;
         $asset->warrenty_period = $request->warrenty_period;
         $asset->name = $request->name;
         $asset->location = $request->location;
         $asset->floor = $request->floor;
-        $asset->type_id = $request->type_id;
+        $asset->service_type_id = $request->type_id;
         $asset->model = $request->model;
         $asset->capacity = $request->capacity;
-        $asset->org_id = $corporate[0]->org_id;
+        $asset->org_id = Auth::user()->org_id;
         $asset->branch_id = $request->branch_id;
-        /*$asset->barrier = $request->barrier;
-        $asset->remarks = $request->remarks;
-        $asset->age = $request->age;
-        $asset->remains = $request->remains;
-        $asset->warrenty = $request->warrenty;
-        $asset->expected_lifetime = $request->expected_lifetime;
-        $asset->costing = $request->costing;*/
+        $asset->save();
         
         $asset->save();
 
         Session::flash('message','Successfully Updated');
-        return redirect()->route('corporate.asset.index');
+        return redirect()->route('asset.index');
     }
 
     /**
@@ -263,13 +169,6 @@ class AssetController extends Controller
 
         Session::flash('message','Successfully Deleted');
         return redirect()->route('asset.index');
-    }
-    public function corporateDestroy($id)
-    {
-        Asset::findOrFail($id)->delete();
-
-        Session::flash('message','Successfully Deleted');
-        return redirect()->route('corporate.asset.index');
     }
     public function assetListFromBranchId(Request $request){
         $assetList = Asset::where('branch_id',$request->branchId)->where('approveOrNot',1)->get();
@@ -292,16 +191,15 @@ class AssetController extends Controller
                 $approvePath = AssetApprover::where('asset_id',$id)->orderBy('id','DESC')->first();
                 $data['approverAccessOrNot'] = AssetApprover::where('forward_user',Auth::guard('corporate')->user()->id)->where('id',$approvePath->id)->count();
             }
-            return view('corporate.assetAction',$data);
+            return view('assetAction',$data);
         }else{
-            return redirect()->route('corporate.dashboard');
+            return redirect()->route('dashboard');
         }
     }
     public function notificationDetails($id){
-        $corporate = Corporate::where('id',Auth::guard('corporate')->id())->get();
-        if($corporate[0]->branch_id == null){
-            $data['approverList'] = Corporate::where('approverOrConsent',1)->where('id','!=',Auth::guard('corporate')->user()->id)->get();
-            $data['assetDetails'] = Asset::with('type','branch')->where('org_id',$corporate[0]->org_id)->where('id',$id)->get();
+        if(Auth::user()->branch_id == null){
+            $data['approverList'] = User::where('approverOrConsent',1)->where('id','!=',Auth::user()->id)->get();
+            $data['assetDetails'] = Asset::with('serviceType','branch')->where('org_id',Auth::user()->org_id)->where('id',$id)->get();
 
             $data['approveList'] = AssetApprover::with('corporateUser','asset','corporateForwardUser')->where('asset_id',$id)->get();
             $data['accessOrNot'] = AssetApprover::where('asset_id',$id)->count();
@@ -309,9 +207,9 @@ class AssetController extends Controller
                 $approvePath = AssetApprover::where('asset_id',$id)->orderBy('id','DESC')->first();
                 $data['approverAccessOrNot'] = AssetApprover::where('forward_user',Auth::guard('corporate')->user()->id)->where('id',$approvePath->id)->count();
             }
-            return view('corporate.assetAction',$data);
+            return view('assetAction',$data);
         }else{
-            return redirect()->route('corporate.dashboard');
+            return redirect()->route('dashboard');
         }
     }
     public function assetApproved(Request $request){
@@ -340,7 +238,7 @@ class AssetController extends Controller
 
             return back();
         }else{
-            return redirect()->route('corporate.dashboard');
+            return redirect()->route('dashboard');
         }
     }
 }

@@ -6,7 +6,7 @@
       <a href="{{ route('vendor-company.create') }}" class="btn btn-primary" style="margin-bottom: 15px;">Add New</a>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Vendors</a></li>
+        <li><a href="#">Vendor Company</a></li>
         <li class="active">List</li>
       </ol>
     </section>
@@ -17,7 +17,7 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Vendors List</h3>
+              <h3 class="box-title">Vendors Company</h3>
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive">

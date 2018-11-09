@@ -34,41 +34,25 @@
 						{{ csrf_field() }}
 					  <div class="box-body">
 					    <div class="form-group">
-							<label for="ServiceId" class="control-label mb-10">Service <span style="color: red;font-weight: bold">*</span></label>
-							<select class="form-control" name="ServiceId" id="ServiceId" required="required">
-								<option value="">Choose a Service</option>
-								@if(count($service)>0)
-									@foreach($service as $value)
-										<option value="{{ $value->id }}" <?php if(isset($jobRequest)){if($jobRequest->ServiceItemId==$value->id) echo 'selected="selected"';} ?>>{{ $value->name }}</option>
-									@endforeach
-								@endif
-							</select>
+							<label for="service_type_id" class="control-label mb-10">Service  Type<span style="color: red;font-weight: bold">*</span></label>
+
+							{{ Form::select('service_type_id',$service,null,['class'=>'form-control','id'=>'service_type_id','required'=>'required','placeholder'=>'Choose Service Type']) }}
 						</div>
 						<div class="form-group">
 							<label for="branchId" class="control-label mb-10">Branch <span style="color: red;font-weight: bold">*</span></label>
-							<select class="form-control" name="branchId" id="branchId" required="required">
-								<option value="">Choose a Branch</option>
-								@if(count($branch)>0)
-									@foreach($branch as $value)
-										<option value="{{ $value->id }}" <?php if(isset($jobRequest)){if($jobRequest->branchId==$value->id) echo 'selected="selected"';} ?>>{{ $value->name }}</option>
-									@endforeach
-								@endif
-							</select>
+
+							{{ Form::select('branch_id',$branch,null,['class'=>'form-control','id'=>'branchId','required'=>'required','placeholder'=>'Choose Branch']) }}
 						</div>
 						<div class="form-group">
 							<label for="assetId" class="control-label mb-10">Asset <span style="color: red;font-weight: bold">*</span></label>
-							<select class="form-control" name="assetId" id="assetId" required="required">
-								<option value="">Choose a Asset</option>
-								<!-- @if(count($asset)>0)
-									@foreach($asset as $value)
-										<option value="{{ $value->id }}" <?php if(isset($jobRequest)){if($jobRequest->assetId==$value->id) echo 'selected="selected"';} ?>>{{ $value->name.'('.$value->location.')' }}</option>
-									@endforeach
-								@endif -->
+
+							<select class="form-control" name="asset_id" id="assetId" required="required">
+								<option value="">Choose Asset</option>
 							</select>
 						</div>
 						<div class="form-group">
 							<label for="Phone" class="control-label mb-10">Phone </label>
-							{{ Form::text('Phone',(isset($jobRequest)?$jobRequest->Phone:null),['class'=>'form-control','placeholder'=>'Enter Phone','id'=>'Phone']) }}
+							{{ Form::text('phone',(isset($jobRequest)?$jobRequest->phone:null),['class'=>'form-control','placeholder'=>'Enter Phone','id'=>'Phone']) }}
 						</div>
 						<div class="form-group">
 							<label for="ProblemDescription" class="control-label mb-10">Problem Description </label>
@@ -76,7 +60,7 @@
 						</div>
 						<div class="form-group">
 							<label for="ExpectedDate" class="control-label mb-10">Expected Date</label>
-							{{ Form::text('ExpectedDate',(isset($jobRequest)?$jobRequest->ExpectedDate:null),['class'=>'form-control datepicker','placeholder'=>'Enter Expected Date','id'=>'ExpectedDate']) }}
+							{{ Form::text('expectedDate',(isset($jobRequest)?$jobRequest->expectedDate:null),['class'=>'form-control datepicker','placeholder'=>'Enter Expected Date','id'=>'ExpectedDate']) }}
 						</div>
 						<!-- time Picker -->
 			              <div class="bootstrap-timepicker">
@@ -84,7 +68,7 @@
 			                  <label>Expected Time </label>
 
 			                  <div class="input-group">
-			                    {{ Form::text('ExpectedTime',(isset($jobRequest)?$jobRequest->ExpectedTime:null),['class'=>'form-control timepicker','placeholder'=>'Enter Expected Time','id'=>'ExpectedTime']) }}
+			                    {{ Form::text('expectedTime',(isset($jobRequest)?$jobRequest->expectedTime:null),['class'=>'form-control timepicker','placeholder'=>'Enter Expected Time','id'=>'ExpectedTime']) }}
 
 			                    <div class="input-group-addon">
 			                      <i class="fa fa-clock-o"></i>

@@ -25,13 +25,12 @@
                 <thead>
                   <tr>
                     <th>SL</th>
+					<th>Branch</th>
+					<th>Service Type</th>
 					<th>Name</th>
-					<th>Type</th>
 					<th>Location</th>
 					<th>Model</th>
 					<th>Capacity</th>
-					<th>Organization</th>
-					<th>Branch</th>
 					<th>Created At</th>
 					<th>Action</th>
                   </tr>
@@ -41,13 +40,12 @@
 					@foreach($getData as $value)
 						<tr>
 							<td>{{ $sl }}</td>
+							<td>{{ $value->branch->name }}</td>
+							<td>{{ $value->serviceType->name }}</td>
 							<td>{{ $value->name }}</td>
-							<td>{{ $value->type->name }}</td>
 							<td>{{ $value->location }}</td>
 							<td>{{ $value->model }}</td>
 							<td>{{ $value->capacity }}</td>
-							<td>{{ $value->organization->name }}</td>
-							<td>{{ $value->branch->name }}</td>
 							<td>{{ $value->created_at }}</td>
 							<td>
 								<div class="btn-group">
@@ -76,13 +74,12 @@
 				<tfoot>
 					<tr>
 						<th>SL</th>
+						<th>Branch</th>
+						<th>Service Type</th>
 						<th>Name</th>
-						<th>Type</th>
 						<th>Location</th>
 						<th>Model</th>
 						<th>Capacity</th>
-						<th>Organization</th>
-						<th>Branch</th>
 						<th>Created At</th>
 						<th>Action</th>
 					</tr>
