@@ -28,6 +28,8 @@ class CreateJobCartsTable extends Migration
             $table->string('ProblemDescription')->nullable();
             $table->date('expectedDate')->nullable();
             $table->string('expectedTime')->nullable();       
+            $table->unsignedInteger('created_by');       
+            $table->foreign('created_by')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -346,6 +346,23 @@
             </li>
           </ul>
         </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-th"></i> 
+            <span>Cart a Problem</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li>
+              <a href="{!! route('cart-req.create') !!}"><i class="fa fa-circle-o"></i> Create</a>
+            </li>
+            <li>
+              <a href="{!! route('cart-req.index') !!}"><i class="fa fa-circle-o"></i> View</a>
+            </li>
+          </ul>
+        </li>
         <li>
           <a href="{!! route('req.estimate.reject') !!}">
             <i class="fa fa-th"></i> 

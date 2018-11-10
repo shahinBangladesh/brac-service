@@ -180,16 +180,16 @@ class AssetController extends Controller
     }
 
     public function approve($id){
-        $corporate = Corporate::where('id',Auth::guard('corporate')->id())->get();
-        if($corporate[0]->branch_id == null){
-            $data['approverList'] = Corporate::where('approverOrConsent',1)->where('id','!=',Auth::guard('corporate')->user()->id)->get();
-            $data['assetDetails'] = Asset::with('type','branch')->where('org_id',$corporate[0]->org_id)->where('id',$id)->get();
+        $auth = Auth::user();
+        if($auth->branch_id == 0){
+            $data['approverList'] = User::where('approverOrConsent',1)->where('id','!=',$auth->id)->get();
+            $data['assetDetails'] = Asset::with('serviceType','branch')->where('org_id',$auth->org_id)->where('id',$id)->get();
 
-            $data['approveList'] = AssetApprover::with('corporateUser','asset','corporateForwardUser')->where('asset_id',$id)->get();
-            $data['accessOrNot'] = AssetApprover::where('asset_id',$id)->count();
+            $data['approveList'] = AssetApprove::with('user','asset','forwardUser')->where('asset_id',$id)->get();
+            $data['accessOrNot'] = AssetApprove::where('asset_id',$id)->count();
             if($data['accessOrNot']!=0){
-                $approvePath = AssetApprover::where('asset_id',$id)->orderBy('id','DESC')->first();
-                $data['approverAccessOrNot'] = AssetApprover::where('forward_user',Auth::guard('corporate')->user()->id)->where('id',$approvePath->id)->count();
+                $approvePath = AssetApprove::where('asset_id',$id)->orderBy('id','DESC')->first();
+                $data['approverAccessOrNot'] = AssetApprove::where('forward_user',Auth::user()->id)->where('id',$approvePath->id)->count();
             }
             return view('assetAction',$data);
         }else{
@@ -201,11 +201,11 @@ class AssetController extends Controller
             $data['approverList'] = User::where('approverOrConsent',1)->where('id','!=',Auth::user()->id)->get();
             $data['assetDetails'] = Asset::with('serviceType','branch')->where('org_id',Auth::user()->org_id)->where('id',$id)->get();
 
-            $data['approveList'] = AssetApprover::with('corporateUser','asset','corporateForwardUser')->where('asset_id',$id)->get();
-            $data['accessOrNot'] = AssetApprover::where('asset_id',$id)->count();
+            $data['approveList'] = AssetApprove::with('corporateUser','asset','corporateForwardUser')->where('asset_id',$id)->get();
+            $data['accessOrNot'] = AssetApprove::where('asset_id',$id)->count();
             if($data['accessOrNot']!=0){
-                $approvePath = AssetApprover::where('asset_id',$id)->orderBy('id','DESC')->first();
-                $data['approverAccessOrNot'] = AssetApprover::where('forward_user',Auth::guard('corporate')->user()->id)->where('id',$approvePath->id)->count();
+                $approvePath = AssetApprove::where('asset_id',$id)->orderBy('id','DESC')->first();
+                $data['approverAccessOrNot'] = AssetApprove::where('forward_user',Auth::user()->id)->where('id',$approvePath->id)->count();
             }
             return view('assetAction',$data);
         }else{
@@ -218,18 +218,18 @@ class AssetController extends Controller
                 'captcha' => 'required|captcha'
             ]);
         }
-        $corporate = Corporate::where('id',Auth::guard('corporate')->id())->get();
+        $auth = Auth::user();
         
-        if($corporate[0]->branch_id == null){
+        if($auth->branch_id == 0){
             $asset = Asset::findOrFail($request->id);
-            $assetApprover = new AssetApprover();
-            $assetApprover->asset_id = $asset->id;
-            $assetApprover->corporate_user_id = Auth::guard('corporate')->id();
-            $assetApprover->approver_status = $request->approves;
+            $AssetApprove = new AssetApprove();
+            $AssetApprove->asset_id = $asset->id;
+            $AssetApprove->user_id = $auth->id;
+            $AssetApprove->approver_status = $request->approves;
             if($request->forward_user != 0)
-                $assetApprover->forward_user = $request->forward_user;
-            $assetApprover->remarks = $request->remarks;
-            $assetApprover->save();
+                $AssetApprove->forward_user = $request->forward_user;
+            $AssetApprove->remarks = $request->remarks;
+            $AssetApprove->save();
 
 
             $asset->approveOrNot = $request->approves;

@@ -127,7 +127,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->name = $request->name;
         
-        @if($request->has('password') && !is_null($request->password))
+        if($request->has('password') && !is_null($request->password))
             $user->password = bcrypt($request->password);
 
         $user->user_type_id = $request->corporate_user_Type_Id;

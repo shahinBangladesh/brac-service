@@ -20,7 +20,7 @@
 												<span class="txt-dark head-font inline-block capitalize-font mb-5">Type : </span>
 											</div>
 											<div class="col-md-9" style="width: 83%;float: right;">
-												<span class="address-head mb-5">{{ $value->type->name }}</span>
+												<span class="address-head mb-5">{{ $value->serviceType->name }}</span>
 											</div>
 										</div>
 										<div class="row"  style="float: left;width: 100%;border-bottom: 1px gray solid;padding: 10px;">
@@ -141,10 +141,10 @@
 													@foreach($approveList as $approveValues)
 														<tr>
 															<td>{{ $approveValues->asset->name }}</td>
-															<td>{{ $approveValues->corporateUser->name }}</td>
+															<td>{{ $approveValues->user->name }}</td>
 															<td>
-																@if($approveValues->corporateForwardUser != '')
-																	{{ $approveValues->corporateForwardUser->name }}
+																@if($approveValues->forwardUser != '')
+																	{{ $approveValues->forwardUser->name }}
 																@endif
 															</td>
 															<td>

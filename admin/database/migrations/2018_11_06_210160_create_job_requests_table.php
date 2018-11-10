@@ -40,6 +40,7 @@ class CreateJobRequestsTable extends Migration
             $table->date('expectedDate')->nullable();
             $table->string('expectedTime')->nullable();            
             $table->integer('estimateReq')->default('0');  
+            $table->boolean('completeReq')->default('0');  
             $table->softDeletes();
             $table->timestamps();
         });
