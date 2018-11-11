@@ -77,7 +77,7 @@ class RequestCartController extends Controller
                 $JobRequest->branch_id = $jobCart->branch_id;
                 $JobRequest->asset_id = $jobCart->asset_id;
                 $JobRequest->org_id = $jobCart->org_id;
-                $JobRequest->status_id = 1;
+                $JobRequest->status_id = 0;
                 $JobRequest->phone = $request->phone;
                 $JobRequest->ProblemDescription = $request->ProblemDescription;
                 $JobRequest->expectedDate = $request->expectedDate;

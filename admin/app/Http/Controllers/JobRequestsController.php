@@ -92,7 +92,7 @@ class JobRequestsController extends Controller
         $JobRequest->branch_id = $request->branch_id;
         $JobRequest->asset_id = $request->asset_id;
         $JobRequest->org_id = Auth::user()->org_id;
-        $JobRequest->status_id = 1;
+        $JobRequest->status_id = 0;
         $JobRequest->phone = $request->phone;
         $JobRequest->ProblemDescription = $request->ProblemDescription;
         $JobRequest->expectedDate = $request->expectedDate;

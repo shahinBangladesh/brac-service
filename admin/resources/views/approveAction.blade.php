@@ -115,7 +115,7 @@
 									</div>
 								@endif
 	
-								@if($reqStatus==0 && ($accessOrNot==0 || $approverAccessOrNot==1))
+								@if($jobDetailsValue->status_id==0 && ($accessOrNot==0 || $approverAccessOrNot==1))
 									<h3 class="text-center">Review Action</h3>
 									<hr>
 									@include('layouts.messege')

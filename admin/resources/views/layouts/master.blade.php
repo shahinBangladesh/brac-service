@@ -200,7 +200,7 @@
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           </a>
         </li>
-        @if(Auth::user()->branch_id == null)
+        @if(Auth::user()->branch_id == 0)
             @if(Auth::user()->approverOrConsent == 1) 
               <li class="treeview">
                 <a href="#">
@@ -257,7 +257,7 @@
               </li>
              @endif
         @endif
-        @if(Auth::user()->branch_id == null)
+        @if(Auth::user()->branch_id == 0)
           <li class="treeview">
             <a href="#">
               <i class="fa fa-pie-chart"></i>
@@ -293,7 +293,7 @@
             </li>
           </ul>
         </li>
-        @if(Auth::user()->branch_id == null)
+        @if(Auth::user()->branch_id == 0)
           <li class="treeview">
             <a href="#">
               <i class="fa fa-laptop"></i>
@@ -372,7 +372,7 @@
             </span>
           </a>
         </li>
-        {{-- @if(Auth::user()->branch_id == null) --}}
+        {{-- @if(Auth::user()->branch_id == 0) --}}
           <li>
             <a href="{{ route('reports') }}">
               <i class="fa fa-th"></i> 

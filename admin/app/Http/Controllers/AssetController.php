@@ -49,7 +49,7 @@ class AssetController extends Controller
         $data['type'] = ServiceType::where('org_id',$auth->org_id)->pluck('name','id');
         $data['branch'] = Branch::where(function($query) use ($auth){
                                                                             $query->where('org_id',$auth->org_id);
-                                                                            if($auth->branch_id <>'')
+                                                                            if($auth->branch_id <> 0)
                                                                                 $query->where('id',$auth->branch_id);
                                                                             })->pluck('name','id');
         

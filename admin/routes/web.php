@@ -5,7 +5,7 @@ Route::get('/', function () {
 
 Auth::routes();
 Route::group(['middleware'=>['auth'/*,'notification'*/]],function (){
-  // Route::get('dashboard', 'CorporateController@index')->name('dashboard');
+  // Route::get('dashboard', 'DashboardController@index')->name('dashboard');
   Route::get('dashboard', 'DashboardController@index')->name('dashboard');
   
   // User Type
@@ -47,7 +47,7 @@ Route::group(['middleware'=>['auth'/*,'notification'*/]],function (){
   Route::post('cartSubmitToRequest','RequestCartController@cartSubmitToRequest')->name('cartSubmitToRequest');
   /*Request*/
   Route::get('req/create','JobRequestsController@create')->name('req.create');
-  Route::get('req/estimate/reject','CorporateController@rejectEstimate')->name('req.estimate.reject');
+  Route::get('req/estimate/reject','DashboardController@rejectEstimate')->name('req.estimate.reject');
   Route::get('req/index','JobRequestsController@index')->name('req.index');
   Route::post('req/create','JobRequestsController@store')->name('req.store');
   Route::get('req/{id}/edit','JobRequestsController@edit')->name('req.edit');
@@ -69,25 +69,25 @@ Route::group(['middleware'=>['auth'/*,'notification'*/]],function (){
   Route::DELETE('serviceType/{id}/destroy','CorporateTypeController@corporateDestroy')->name('serviceType.destroy');*/
 
   /*Approval Action*/
-  Route::get('approved/{id}','CorporateController@approveAction')->name('approved');
-  Route::get('estimate/{id}','CorporateController@estimateAction')->name('estimate');
-  Route::post('req/approved','CorporateController@reqApproved')->name('req.approved');
-  Route::post('estimate/approved','CorporateController@estimateApproved')->name('estimate.approved');
-  Route::get('asset/{id}','CorporateController@assetReqList')->name('asset');
-  Route::get('estimate/list','CorporateController@estimateList')->name('estimate.list');
-  // Route::get('req/reject/{id}','CorporateController@rejectRequest')->name('req.reject');
+  Route::get('approved/{id}','DashboardController@approveAction')->name('approved');
+  Route::get('estimate/{id}','DashboardController@estimateAction')->name('estimate');
+  Route::post('req/approved','DashboardController@reqApproved')->name('req.approved');
+  Route::post('estimate/approved','DashboardController@estimateApproved')->name('estimate.approved');
+  Route::get('asset/{id}','DashboardController@assetReqList')->name('asset');
+  Route::get('estimate/list','DashboardController@estimateList')->name('estimate.list');
+  // Route::get('req/reject/{id}','DashboardController@rejectRequest')->name('req.reject');
    
   /*Reports*/
-  Route::get('reports','CorporateController@report')->name('reports');
-  Route::get('tatLists','CorporateController@tatLists')->name('tatLists');
-  Route::post('reports','CorporateController@getReport')->name('reports');
+  Route::get('reports','DashboardController@report')->name('reports');
+  Route::get('tatLists','DashboardController@tatLists')->name('tatLists');
+  Route::post('reports','DashboardController@getReport')->name('reports');
 
   //Dashbaord Section See All
-  Route::get('unassigned','CorporateController@unassigned')->name('unassigned');
-  Route::get('waitingForEstimateApproval','CorporateController@waitingForEstimateApproval')->name('waitingForEstimateApproval');
-  Route::get('pending','CorporateController@pending')->name('pending');
-  Route::get('inProcess','CorporateController@inProcess')->name('inProcess');
-  Route::get('waitingForEssSchedule','CorporateController@waitingForEssSchedule')->name('waitingForEssSchedule');
+  Route::get('unassigned','DashboardController@unassigned')->name('unassigned');
+  Route::get('waitingForEstimateApproval','DashboardController@waitingForEstimateApproval')->name('waitingForEstimateApproval');
+  Route::get('pending','DashboardController@pending')->name('pending');
+  Route::get('inProcess','DashboardController@inProcess')->name('inProcess');
+  Route::get('waitingForEssSchedule','DashboardController@waitingForEssSchedule')->name('waitingForEssSchedule');
 });
 
 Route::get('logout',function (){
