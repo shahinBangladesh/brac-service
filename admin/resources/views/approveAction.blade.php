@@ -142,11 +142,11 @@
 														</select>
 													@endif
 												</div>
-												<div class="form-group">
+												<div class="form-group expectedDate">
 													<label>Expected Date</label>
 													<input type="text" class="form-control datepicker" name="expectedDate" placeholder="Approver Wish Date">
 												</div>
-												<div class="form-group">
+												<div class="form-group amount">
 													<label>Amount</label>
 													<input type="text" class="form-control" name="amount" placeholder="Amount">
 												</div>
@@ -180,17 +180,30 @@
 				$('.approveActions').on('change',function(){
 					if($(this).val()==3){
 						$('.approverShow').show();
+						$('.captcha').hide();
 						$('#captcha').removeAttr('required');
 						$('.remarks').removeAttr('required');
+
+
+						$('.expectedDate').show();
+						$('.amount').show();
 					}else if($(this).val()==2){
 						$('.captcha').show();
 						$('#captcha').attr('required','required');
 						$('.remarks').attr('required','required');
+
+						$('.expectedDate').hide();
+						$('.amount').hide();
 					}else{
 						$('.approverShow').hide();
+						$('.captcha').hide();
 						$('#captcha').removeAttr('required');
 						$('.remarks').removeAttr('required');
 						$('select option:contains("Select a Appprover")').prop('selected',true);
+
+
+						$('.expectedDate').show();
+						$('.amount').show();
 					}
 				})
 			});
