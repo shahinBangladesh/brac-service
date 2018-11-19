@@ -3,6 +3,21 @@ Route::get('/', function () {
     return view('auth.login');
 })->name('login');
 
+Route::group([/*'middleware'=>['vendorPanel'],*/'prefix'=>'vendor'],function() {
+  Route::get('login', 'Auth\VendorLoginController@showLoginForm')->name('vendor.login');
+  Route::post('/login', 'Auth\VendorLoginController@login')->name('vendor.login.submit');
+
+  Route::namespace('vendor')->group(function () {
+    Route::get('/', 'VendorController@index')->name('vendor.dashboard');
+  });
+
+
+  Route::get('logout',function (){
+      Auth::guard('vendorPanel')->logout();
+      return redirect()->route('vendor.login');
+  })->name('vendor.logout');
+});
+
 Auth::routes();
 Route::group(['middleware'=>['auth'/*,'notification'*/]],function (){
   // Route::get('dashboard', 'DashboardController@index')->name('dashboard');
