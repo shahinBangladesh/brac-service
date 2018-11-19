@@ -83,12 +83,24 @@
 											<tbody>
 												@foreach($approveList as $approveValues)
 													<tr>
-														<td>{{ $approveValues->asset->name }}</td>
-														<td>{{ $approveValues->branch->name }}</td>
-														<td>{{ $approveValues->corporateUser->name }}</td>
 														<td>
-															@if($approveValues->corporateForwardUser != '')
-																{{ $approveValues->corporateForwardUser->name }}
+															@if(!is_null($approveValues->asset))
+																{{ $approveValues->asset->name }}
+															@endif
+														</td>
+														<td>
+															@if(!is_null($approveValues->branch))
+																{{ $approveValues->branch->name }}
+															@endif
+														</td>
+														<td>
+															@if(!is_null($approveValues->user))
+																{{ $approveValues->user->name }}
+															@endif
+														</td>
+														<td>
+															@if($approveValues->forwardUser != '')
+																{{ $approveValues->forwardUser->name }}
 															@endif
 														</td>
 														<td>
@@ -151,7 +163,7 @@
 														@foreach($vendorCompaniesList as $value)
 															<div class="col-md-4">
 																<span>{{ $value->vendorCompany->name }}</span>
-																<input type="checkbox" class="singleVendor" name="vendor_id" value="{{ $value->vendor_compnay_id }}">	
+																<input type="checkbox" class="singleVendor" name="vendor_id[]" value="{{ $value->vendor_compnay_id }}">	
 															</div>
 														@endforeach
 													</div>

@@ -27,7 +27,17 @@ class Status extends Seeder
 
 
         DB::table('status')->insert([
-        	'name' => 'Raised',
+            'name' => 'Raised',
+            'vendor_id' => 0,
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+        ]);
+        DB::table('status')->insert([
+            'name' => 'Open Price',
+            'vendor_id' => 0,
+            'created_at' => Carbon::now()->format('Y-m-d H:i:s')
+        ]);
+        DB::table('status')->insert([
+        	'name' => 'Request Rejected',
         	'vendor_id' => 0,
         	'created_at' => Carbon::now()->format('Y-m-d H:i:s')
         ]);

@@ -13,6 +13,7 @@ use App\Status;
 use App\UserType;
 use App\Vendor;
 use App\ApproverPath;
+use App\EstimateRequest;
 use App\AllRequestStatus;
 use App\VendorCompany;
 use App\VendorService;
@@ -152,9 +153,10 @@ class DashboardController extends Controller
             $data['jobDetails'] = $jobDetails;
             $data['approveList'] = ApproverPath::with('user','asset','branch','forwardUser')->where('req_id',$jobReqId)->get();
             $data['accessOrNot'] = ApproverPath::where('req_id',$jobReqId)->count();
+
             if($data['accessOrNot']!=0){
                 $approvePath = ApproverPath::where('req_id',$jobReqId)->orderBy('id','DESC')->limit(1)->get();
-                $data['approverAccessOrNot'] = ApproverPath::where('forward_user',$auth->id)->where('id',$approvePath[0]->id)->count();
+                $data['approverAccessOrNot'] = ApproverPath::where('forward_user_id',$auth->id)->where('id',$approvePath[0]->id)->count();
             }
             $data['vendorCompaniesList'] = VendorService::with('vendorCompany')->where(['org_id'=>$auth->org_id,'service_type_id'=>$jobDetails->service_type_id])->groupBy('vendor_compnay_id')->get();
             
@@ -177,11 +179,11 @@ class DashboardController extends Controller
             $jobReq = JobRequest::findOrFail($request->jobRequestId);
             $approverpaths = new ApproverPath();
             $approverpaths->req_id = $request->jobRequestId;
-            $approverpaths->asset_id = $jobReq->assetId;
-            $approverpaths->branch_id = $jobReq->branchId;
-            $approverpaths->corporate_user_id = $auth->id;
+            $approverpaths->user_id = $auth->id;
+            $approverpaths->forward_user_id = $auth->forward_user;
+            $approverpaths->asset_id = $jobReq->asset_id;
+            $approverpaths->branch_id = $jobReq->branch_id;
             $approverpaths->approver_status = $request->approves;
-            $approverpaths->forward_user = $request->forward_user;
             $approverpaths->remarks = $request->remarks;
             $approverpaths->amount = $request->amount;
             $approverpaths->expectedDate = $request->expectedDate;
@@ -192,17 +194,30 @@ class DashboardController extends Controller
 
             if($request->approves==1){
                 $allrequeststatuses = new AllRequestStatus();
-                $allrequeststatuses->req_id = $request->jobRequestId;
-                $allrequeststatuses->status_id = 12;
-                $allrequeststatuses->notification = 1;
-                $allrequeststatuses->corporate_notification = 1;
+                $allrequeststatuses->job_request_id = $request->jobRequestId;
+                $allrequeststatuses->status_id = 2;
+                $allrequeststatuses->vendor_id = 0;
+                $allrequeststatuses->expected_date = $request->expectedDate;
+                $allrequeststatuses->remarks = $request->remarks;
                 $allrequeststatuses->save();
+
+                if(count(array_filter($request->vendor_id))>0){
+                    foreach($request->vendor_id as $value){
+                        $estimateRequest = new EstimateRequest();
+                        $estimateRequest->job_request_id = $request->jobRequestId;
+                        $estimateRequest->vendors_companies_id = $value;
+                        $estimateRequest->sendOrNot = 0;
+
+                        $estimateRequest->save();
+                    }
+                }
             }else if($request->approves==2){
                 $allrequeststatuses = new AllRequestStatus();
-                $allrequeststatuses->req_id = $request->jobRequestId;
-                $allrequeststatuses->status_id = 6;
-                $allrequeststatuses->notification = 1;
-                $allrequeststatuses->corporate_notification = 1;
+                $allrequeststatuses->job_request_id = $request->jobRequestId;
+                $allrequeststatuses->status_id = 3;
+                $allrequeststatuses->vendor_id = 0;
+                $allrequeststatuses->expected_date = $request->expectedDate;
+                $allrequeststatuses->remarks = $request->remarks;
                 $allrequeststatuses->save();
             }
 
