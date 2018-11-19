@@ -147,15 +147,17 @@ class DashboardController extends Controller
     public function approveAction($jobReqId){
         $auth = Auth::user();
         if($auth->branch_id == 0){
+            $jobDetails = JobRequest::with('serviceType','branch','asset')->where('org_id',$auth->org_id)->findOrFail($jobReqId);
             $data['approverList'] = User::where('approverOrConsent',1)->where('id','!=',$auth->id)->get();
-            $data['jobDetails'] = JobRequest::with('serviceType','branch','asset')->where('org_id',$auth->org_id)->where('id',$jobReqId)->get();
+            $data['jobDetails'] = $jobDetails;
             $data['approveList'] = ApproverPath::with('user','asset','branch','forwardUser')->where('req_id',$jobReqId)->get();
             $data['accessOrNot'] = ApproverPath::where('req_id',$jobReqId)->count();
             if($data['accessOrNot']!=0){
                 $approvePath = ApproverPath::where('req_id',$jobReqId)->orderBy('id','DESC')->limit(1)->get();
                 $data['approverAccessOrNot'] = ApproverPath::where('forward_user',$auth->id)->where('id',$approvePath[0]->id)->count();
             }
-            // dd($data);
+            $data['vendorCompaniesList'] = VendorService::with('vendorCompany')->where(['org_id'=>$auth->org_id,'service_type_id'=>$jobDetails->service_type_id])->groupBy('vendor_compnay_id')->get();
+            
             return view('approveAction',$data);
         }else{
             return redirect()->route('dashboard');
